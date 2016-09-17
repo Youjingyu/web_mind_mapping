@@ -1,0 +1,48 @@
+body{
+    height: 100%;
+    margin: 0;
+}
+
+canvas{
+    height: 100%;
+    width: 100px;
+}
+
+.clear-fix:before,.clear-fix:after{
+    display: table;
+    content: '';
+    clear: both;
+}
+
+.first,.second{
+    float: left;
+    height: 100%;
+    width: 200px;
+}
+
+.one-to-two{
+    float: left;
+    width: 100px;
+    height: 500px;
+}
+
+.first-menu{
+    /*margin-top: 250px;*/
+    width: 198px;
+    height: 98px;
+    border: 1px solid darkgreen;
+    border-radius: 5px;
+    background-color: aquamarine;
+}
+
+.second-menu{
+    width: 198px;
+    height: 78px;
+    border: 1px solid darkgreen;
+    border-radius: 5px;
+    background-color: aquamarine;
+}
+
+.second-menu:not(:first-child){
+    margin-top: 50px;
+}
