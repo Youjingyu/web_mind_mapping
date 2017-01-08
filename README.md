@@ -1,2 +1,2 @@
 # web_mind_mapping
-a mind mapping for web
+a mind map for web
