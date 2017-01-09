@@ -8,7 +8,7 @@ var margin = {
     height = 800 - margin.top - margin.bottom;
 
 var root = {
-    "content": "flare",
+    "content": "flare flare flare flare flare flare flare flare",
     "children": [{
         "content": "analytics",
         "children": [{
@@ -134,6 +134,8 @@ root.y0 = height / 2;
 function collapse(d) {
     if (d.children) {
         d._children = d.children;
+        d._children.width = 30;
+        console.log(d._children.width);
         d._children.forEach(collapse);
         d.children = null;
     }
@@ -145,6 +147,7 @@ update(root);
 d3.select("#body").style("height", "800px");
 
 function update(source) {
+    console.log(source);
 
     // Compute the new tree layout.
     var nodes = tree.nodes(root).reverse(),
@@ -184,14 +187,15 @@ function update(source) {
         });
 
     var text = nodeEnter.append("text")
-        .attr("x", 0)
-        .attr("y", 0)
+        .attr("x", 2)
+        .attr("y", 10)
         .attr("dy", ".35em")
-        .attr("text-anchor", "start");
-        //.text(function (d) {
-        //    return d.content;
-        //});
-    wrap(text, 60);
+        .attr("text-anchor", "start")
+        .attr("content", function(d){
+            return d.content;
+        })
+
+    wrap(text, 55);
     // Transition nodes to their new position.
     var nodeUpdate = node.transition()
         .duration(duration)
@@ -286,9 +290,11 @@ function update(source) {
 function click(d) {
     if (d.children) {
         d._children = d.children;
+        d._children.width = 30;
         d.children = null;
     } else {
         d.children = d._children;
+        d.children.width = 30;
         d._children = null;
     }
     update(d);
@@ -304,7 +310,7 @@ function redraw() {
 function wrap(text, width) {
     text.each(function () {
         var text = d3.select(this),
-            words = "Foo is not a long word lll llll lll ".split(/\s+/).reverse(),
+            words = text.attr('content').split(/\s+/).reverse(),
             word,
             line = [],
             lineNumber = 0,
