@@ -46,7 +46,7 @@ function update(source) {
         n.x = i * barHeight;
     });
 
-    // Update the nodes¡­
+    // Update the nodesï¿½ï¿½
     var node = svg.selectAll("g.node")
         .data(nodes, function(d) { return d.id || (d.id = ++i); });
 
@@ -88,7 +88,7 @@ function update(source) {
         .style("opacity", 1e-6)
         .remove();
 
-    // Update the links¡­
+    // Update the linksï¿½ï¿½
     var link = svg.selectAll("path.link")
         .data(tree.links(nodes), function(d) { return d.target.id; });
 
@@ -139,3 +139,38 @@ function click(d) {
 function color(d) {
     return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
 }
+
+
+function wrap(text, width) {
+    text.each(function () {
+        var text = d3.select(this),
+            words = "Foo is not a long word".split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            x = text.attr("x"),
+            y = text.attr("y"),
+            dy = 0, //parseFloat(text.attr("dy")),
+            tspan = text.text(null)
+                .append("tspan")
+                .attr("x", x)
+                .attr("y", y)
+                .attr("dy", dy + "em");
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan")
+                    .attr("x", x)
+                    .attr("y", y)
+                    .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                    .text(word);
+            }
+        }
+    });
+}
+
