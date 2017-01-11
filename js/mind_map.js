@@ -8,9 +8,9 @@ var margin = {
     height = 800 - margin.top - margin.bottom;
 
 var root = {
-    "content": "flare flare flare flare flare flare flare flare",
+    "content": "flare",
     "children": [{
-        "content": "analytics",
+        "content": "analytics flare flare flare flare flare flare flare",
         "children": [{
             "content": "cluster",
             "children": [{
@@ -110,13 +110,14 @@ var i = 0,
     rectW = 60,
     rectH = 30;
 
-var tree = d3.layout.tree().nodeSize([70, 40]).separation(function(a, b){
-    return 1
+var tree = d3.layout.tree().nodeSize([100, 40]).separation(function(a, b){
+    console.log(a,b);
+    return 3
 });
 var diagonal = d3.svg.diagonal()
     .projection(function (d) {
         var h = d.height ? d.height : rectH;
-        return [d.y + rectW / 2, d.x + rectH / 2];
+        return [d.y + rectW / 2, d.x + h / 2];
     });
 var client_width = document.documentElement.clientWidth,
     client_height = document.documentElement.clientHeight;
@@ -134,8 +135,6 @@ root.y0 = height / 2;
 function collapse(d) {
     if (d.children) {
         d._children = d.children;
-        d._children.width = 30;
-        console.log(d._children.width);
         d._children.forEach(collapse);
         d.children = null;
     }
@@ -147,7 +146,7 @@ update(root);
 d3.select("#body").style("height", "800px");
 
 function update(source) {
-    console.log(source);
+
 
     // Compute the new tree layout.
     var nodes = tree.nodes(root).reverse(),
@@ -172,14 +171,14 @@ function update(source) {
         })
         .on("click", click);
 
-    nodeEnter.append("rect")
+    var rect = nodeEnter.append("rect")
         .attr("width", function(){
             return rectW
         })
-        .attr("height", function(d){
-            d.height = 30;
-            return d.height
-        })
+        //.attr("height", function(d){
+        //    d.height = 30;
+        //    return d.height
+        //})
         .attr("stroke", "black")
         .attr("stroke-width", 1)
         .style("fill", function (d) {
@@ -191,11 +190,27 @@ function update(source) {
         .attr("y", 10)
         .attr("dy", ".35em")
         .attr("text-anchor", "start")
-        .attr("content", function(d){
-            return d.content;
-        })
-
-    wrap(text, 55);
+        //.attr("content", function(d){return d.content})
+        .html(function(d){
+            var result = splitContent(d.content);
+            d.height = result.height;
+            return result.tspan;
+        });
+    rect.attr("height", function(d){
+        return d.height
+    });
+    function splitContent(content){
+        var text_arr = content.match(/.{1,3}/g);
+        var tspan = '';
+        text_arr.forEach(function(text, i){
+            tspan += '<tspan x="2" y="10" dy="'+ i*1.2 +'em">' + text + '</tspan>';
+        });
+        return {
+            tspan: tspan,
+            height: text_arr.length * 12
+        }
+    }
+    //wrap(text, 55);
     // Transition nodes to their new position.
     var nodeUpdate = node.transition()
         .duration(duration)
@@ -290,11 +305,9 @@ function update(source) {
 function click(d) {
     if (d.children) {
         d._children = d.children;
-        d._children.width = 30;
         d.children = null;
     } else {
         d.children = d._children;
-        d.children.width = 30;
         d._children = null;
     }
     update(d);
