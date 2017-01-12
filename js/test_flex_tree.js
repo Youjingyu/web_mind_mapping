@@ -216,7 +216,7 @@ d3.json('flextree.json', function (err, tree) {
         node.exit().transition()
             .duration(duration)
             .attr("transform", function (d) {
-                return "translate(" + source.y + "," + source.x + ")";
+                return "translate(" + (source.y) + "," + (source.x + d.x_size/2) + ")";
             })
             .remove();
 
@@ -241,12 +241,14 @@ d3.json('flextree.json', function (err, tree) {
                 return d.target.id;
             });
 
-        link.enter().append("path")
+        link.enter().insert("path", "g")
             .attr("class", "link")
             .attr("d", function (d) {
                 var o = {
                     x: source.x0,
-                    y: source.y0
+                    y: source.y0,
+                    y_size: d.source.y_size,
+                    x_size: d.source.x_size
                 };
                 return diagonal({
                     source: o,
@@ -263,7 +265,9 @@ d3.json('flextree.json', function (err, tree) {
             .attr("d", function (d) {
                 var o = {
                     x: source.x,
-                    y: source.y
+                    y: source.y,
+                    y_size: d.source.y_size,
+                    x_size: d.source.x_size
                 };
                 return diagonal({
                     source: o,

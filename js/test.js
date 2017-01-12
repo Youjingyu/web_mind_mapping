@@ -174,3 +174,16 @@ function wrap(text, width) {
     });
 }
 
+ao.svg.diagonal=function(){
+    function n(n,i){
+        var u=t.call(this,n,i),
+            o=e.call(this,n,i),
+            a=(u.y+o.y)/2,
+            l=[u,{x:u.x,y:a},{x:o.x,y:a},o];
+        return l=l.map(r),
+        "M"+l[0]+"C"+l[1]+" "+l[2]+" "+l[3]
+    }
+    var t=Me,e=xe,r=Yu;
+    return n.source=function(e){
+        return arguments.length?(t=En(e),n):t},
+        n.target=function(t){return arguments.length?(e=En(t),n):e},n.projection=function(t){return arguments.length?(r=t,n):r},n}
