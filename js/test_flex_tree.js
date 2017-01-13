@@ -47,8 +47,8 @@ d3.json('flextree.json', function (err, tree) {
         engine.size([200, 100]);
     }
 
-    tree.x0 = 0;
-    tree.y0 = height / 2;
+    tree.x0 = height / 2;
+    tree.y0 = 0;
 
     function collapse(d) {
         if (d.children) {
@@ -57,14 +57,15 @@ d3.json('flextree.json', function (err, tree) {
             d.children = null;
         }
     }
-    tree.children.forEach(collapse);
+    //tree.children.forEach(collapse);
 
 
     var client_width = document.documentElement.clientWidth,
         client_height = document.documentElement.clientHeight;
 
     var svg = d3.select("#drawing").append("div").append('svg').attr("width", client_width).attr("height", client_height);
-    var svg_g = svg.append("g").attr("transform", "translate(" + 20 + "," + client_height/2 + ")");
+    var svg_g = svg.append("g");
+        //.attr("transform", "translate(" + 20 + "," + client_height/2 + ")");
     /*var zm;
     svg.call(zm = d3.behavior.zoom().scaleExtent([0.5,3]).on("zoom", redraw));
     zm.translate([20, client_height/2]);*/
@@ -142,12 +143,12 @@ d3.json('flextree.json', function (err, tree) {
         });
         var area_ave = area_sum / nodes.length;
         // scale such that the average node size is 400 px^2
-        console.log("area_ave = " + area_ave);
+        //console.log("area_ave = " + area_ave);
         var scale = test_case.name == "flare" ? 1 : 80 / Math.sqrt(area_ave);
-        console.log("extents = %o", {
-            xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax
-        });
-        console.log("scale = " + scale);
+        //console.log("extents = %o", {
+        //    xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax
+        //});
+        //console.log("scale = " + scale);
 
         // Functions to get the derived svg coordinates given the tree node
         // coordinates.
@@ -216,7 +217,7 @@ d3.json('flextree.json', function (err, tree) {
         node.exit().transition()
             .duration(duration)
             .attr("transform", function (d) {
-                return "translate(" + (source.y) + "," + (source.x + d.x_size/2) + ")";
+                return "translate(" + (source.y) + "," + svg_y(source.x) + ")";
             })
             .remove();
 
@@ -266,8 +267,7 @@ d3.json('flextree.json', function (err, tree) {
                 var o = {
                     x: source.x,
                     y: source.y,
-                    y_size: d.source.y_size,
-                    x_size: d.source.x_size
+                    y_size: d.source.y_size
                 };
                 return diagonal({
                     source: o,
@@ -277,8 +277,8 @@ d3.json('flextree.json', function (err, tree) {
             .remove();
         // Stash the old positions for transition.
         nodes.forEach(function (d) {
-            d.x0 = d.x;
-            d.y0 = d.y;
+            d.x0 = svg_y(d.x);
+            d.y0 = svg_x(d.y);
         });
     }
 
