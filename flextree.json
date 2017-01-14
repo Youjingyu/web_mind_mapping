@@ -1,17 +1,15 @@
 {
-  "x_size" : 7.5,
-  "y_size" : 7.0,
-  "name" : "flare flare flare",
+  "name" : "Bootstrap简介",
   "children" : [
     {
       "x_size": 4.0,
       "y_size": 3.5,
-      "name" : "flare flare flare",
+      "name" : "基础css",
       "children": [
         {
           "x_size": 2.0,
           "y_size": 5.0,
-          "name" : "flare flare flare",
+          "name" : "flare flare",
           "children": [
             {
               "x_size": 8.5,
@@ -31,7 +29,7 @@
         {
           "x_size": 9.5,
           "y_size": 8.0,
-          "name" : "flare flare flare",
+          "name" : "flare flare",
           "children": [
             {
               "x_size": 3.5,
@@ -55,7 +53,7 @@
             {
               "x_size": 8.5,
               "y_size": 3.5,
-              "name" : "flare flare flare",
+              "name" : "flare flare",
               "children": [
                 {
                   "x_size": 3.5,
@@ -73,7 +71,7 @@
                 {
                   "x_size": 4.0,
                   "y_size": 2.5,
-                  "name" : "flare flare flare",
+                  "name" : "flare flare",
                   "children": []
                 }
               ]
@@ -100,7 +98,7 @@
             {
               "x_size": 9.0,
               "y_size": 9.5,
-              "name" : "flare flare flare",
+              "name" : "flare flare",
               "children": []
             }
           ]

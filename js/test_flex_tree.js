@@ -57,7 +57,7 @@ d3.json('flextree.json', function (err, tree) {
             d.children = null;
         }
     }
-    //tree.children.forEach(collapse);
+    tree.children.forEach(collapse);
 
 
     var client_width = document.documentElement.clientWidth,
@@ -195,10 +195,10 @@ d3.json('flextree.json', function (err, tree) {
                 d.y = d.depth * 180;
                 return "translate(" + svg_x(d.y) + "," + svg_y(d.x) + ")";
             });
-        node.append("rect")
-            .attr("data-id", function (d) {
-                return d.id;
-            })
+        nodeEnter.append("rect")
+            //.attr("data-id", function (d) {
+            //    return d.id;
+            //})
             .attr({
                 x: 0,
                 y: function (d) {
@@ -246,10 +246,9 @@ d3.json('flextree.json', function (err, tree) {
             .attr("class", "link")
             .attr("d", function (d) {
                 var o = {
-                    x: source.x0,
-                    y: source.y0,
-                    y_size: d.source.y_size,
-                    x_size: d.source.x_size
+                    x: source.x,
+                    y: source.y,
+                    y_size: source.y_size
                 };
                 return diagonal({
                     source: o,
