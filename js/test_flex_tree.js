@@ -57,18 +57,18 @@ d3.json('flextree.json', function (err, tree) {
             d.children = null;
         }
     }
-    tree.children.forEach(collapse);
+    //tree.children.forEach(collapse);
 
 
     var client_width = document.documentElement.clientWidth,
         client_height = document.documentElement.clientHeight;
 
-    var svg = d3.select("#drawing").append("div").append('svg').attr("width", client_width).attr("height", client_height);
+    var svg = d3.select("#drawing").append('svg').attr("width", client_width).attr("height", client_height);
     var svg_g = svg.append("g");
         //.attr("transform", "translate(" + 20 + "," + client_height/2 + ")");
-    /*var zm;
-    svg.call(zm = d3.behavior.zoom().scaleExtent([0.5,3]).on("zoom", redraw));
-    zm.translate([20, client_height/2]);*/
+
+    svg.call(d3.behavior.zoom().scaleExtent([0.5,3]).on("zoom", redraw));
+
 
     update(tree);
     function update(source){
@@ -235,7 +235,18 @@ d3.json('flextree.json', function (err, tree) {
                 return [svg_x(d.y), svg_y(d.x)];
             })
             ;
-
+        var test_diagonal = d3.svg.diagonal()
+            .source(function (d, i) {
+                var s = d.source;
+                return {
+                    x: s.x,
+                    y: s.y + s.y_size - nodebox_right_margin / scale
+                };
+            })
+            .projection(function (d) {
+                //return (node_y - ymin) * scale;
+                return [d.y, d.x];
+            });
         var links = engine.links(nodes);
         var link = svg_g.selectAll("path.link")
             .data(links, function (d) {
@@ -246,11 +257,11 @@ d3.json('flextree.json', function (err, tree) {
             .attr("class", "link")
             .attr("d", function (d) {
                 var o = {
-                    x: source.x,
-                    y: source.y,
+                    x: source.x0,
+                    y: source.y0,
                     y_size: source.y_size
                 };
-                return diagonal({
+                return test_diagonal({
                     source: o,
                     target: o
                 });
@@ -291,7 +302,7 @@ d3.json('flextree.json', function (err, tree) {
 //Redraw for zoom
     function redraw() {
         //console.log("here", d3.event.translate, d3.event.scale);
-        svg.attr("transform",
+        svg_g.attr("transform",
             "translate(" + d3.event.translate + ")"
             + " scale(" + d3.event.scale + ")");
     }
