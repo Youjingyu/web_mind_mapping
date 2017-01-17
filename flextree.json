@@ -1,115 +1,110 @@
 {
-  "name" : "Bootstrap简介",
+  "content" : "Bootstrap简介",
   "children" : [
     {
-      "x_size": 4.0,
-      "y_size": 3.5,
-      "name" : "基础css",
+      "content" : "基础css",
       "children": [
         {
-          "x_size": 2.0,
-          "y_size": 5.0,
-          "name" : "flare flare",
+          "content" : "网格系统",
           "children": [
             {
-              "x_size": 8.5,
-              "y_size": 4.0,
-              "name" : "flare flare flare",
+              "content" : "HTML结构",
+              "children": []
+            },
+            {
+              "content" : "实现原理",
               "children": [
                 {
-                  "x_size": 4.5,
-                  "y_size": 4.5,
-                  "name" : "flare flare flare",
+                  "content" : "将容器.container等分为12列（可以在less编译时设置变量，等分为任意列数），每列向左浮动，超过12列则换行显示"
+                },
+                {
+                  "content" : "每个单元格之间用padding设置间距，首尾单元格的padding用每行(.row)的margin取负值抵消",
                   "children": []
+                }
+              ]
+            },
+            {
+              "content" : "css前缀说明",
+              "children": [
+                {"content" : ".col-xs-：所有宽度屏幕，水平显示"},
+                {"content" : ".col-sm-：屏幕宽度>768px，水平显示"},
+                {"content" : ".col-md-：屏幕宽度>992px，水平显示"},
+                {"content" : ".col-lg-：屏幕宽度>1200px，水平显示"},
+                {"content" : "屏幕不在宽度范围内，元素折叠显示"}
+              ]
+            },
+            {
+              "content" : "辅助类",
+              "children": [
+                {
+                  "content" : ".col-md-offset-*：偏移列，左边空出*列，设置margin-left实现"
+                },
+                {
+                  "content" : "col-md-push-*：列排序，距离左边界*列，设置left属性实现"
+                },
+                {
+                  "content": ".col-md-pull：列排序，距离右边界*列"
+                },
+                {
+                  "content" : ".col-md-offset-*与.col-md-push-* 效果类似，但前者不能实现列的重排"
                 }
               ]
             }
           ]
         },
         {
-          "x_size": 9.5,
-          "y_size": 8.0,
-          "name" : "flare flare",
+          "content" : "排版",
           "children": [
             {
-              "x_size": 3.5,
-              "y_size": 2.5,
-              "name" : "flare flare flare",
-              "children": []
-            },
-            {
-              "x_size": 10.0,
-              "y_size": 2.0,
-              "name" : "flare flare flare",
+              "content" : "部分排版分类",
               "children": []
             }
           ]
         },
         {
-          "x_size": 8.0,
-          "y_size": 7.0,
-          "name" : "flare flare flare",
+          "content" : "表格",
           "children": [
             {
-              "x_size": 8.5,
-              "y_size": 3.5,
-              "name" : "flare flare",
+              "content" : "HTMl结构",
+              "children": []
+            },
+            {
+              "content": "CSS",
               "children": [
+                {"content": ".table：添加表格基本样式，设置间距、边框、对齐等"},
+                {"content": ".table-condensed：使表格更加紧凑，减小padding实现"},
+                {"content": ".table-striped：斑马线表格，设置偶数行的背景色实现"},
+                {"content": ".table-bordered：添加表格边框"},
+                {"content": ".table-hover：tbody内的行具有鼠标悬停状态"},
                 {
-                  "x_size": 3.5,
-                  "y_size": 7.0,
-                  "name" : "flare flare flare",
-                  "children": []
+                  "content": ".table-responsive",
+                  "children": [
+                    {"content": "响应式表格，让表格水平滚动以适应小型设备（小于 768px）"},
+                    {"content": "HTML结构", "children": []},
+                    {"content": "原理：在小屏幕下，设置overflow-x: auto;   white-space: nowrap"}
+                  ]
                 }
               ]
-            },
-            {
-              "x_size": 3.0,
-              "y_size": 1.0,
-              "name" : "flare flare flare",
-              "children": [
-                {
-                  "x_size": 4.0,
-                  "y_size": 2.5,
-                  "name" : "flare flare",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "x_size": 6.0,
-              "y_size": 2.5,
-              "name" : "flare flare flare",
-              "children": []
-            },
-            {
-              "x_size": 2.5,
-              "y_size": 7.5,
-              "name" : "flare flare flare",
-              "children": []
             }
           ]
-        },
-        {
-          "x_size": 9.5,
-          "y_size": 2.5,
-          "name" : "flare flare flare",
-          "children": [
-            {
-              "x_size": 9.0,
-              "y_size": 9.5,
-              "name" : "flare flare",
-              "children": []
-            }
-          ]
-        },
-        {
-          "x_size": 6.5,
-          "y_size": 5.5,
-          "name" : "flare flare flare",
-          "children": []
         }
       ]
+    },
+    {
+      "content": "布局组件",
+      "children": []
+    },
+    {
+      "content": "插件",
+      "children": []
+    },
+    {
+      "content": "自定义Bootstrap",
+      "children": []
+    },
+    {
+      "content": "规范（仅供参考）",
+      "children": []
     }
   ]
 }

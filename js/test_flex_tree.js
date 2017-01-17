@@ -30,7 +30,7 @@ d3.json('flextree.json', function (err, tree) {
     else if (test_case.gap == "spacing-custom") {
         engine.spacing(function (a, b) {
             return a.parent == b.parent ?
-                0 : engine.rootXSize();
+                4 : engine.rootXSize();
         })
     }
 
@@ -38,6 +38,10 @@ d3.json('flextree.json', function (err, tree) {
     if (test_case.sizing == "node-size-function") {
         engine.nodeSize(function (t) {
             return [t.x_size, t.y_size];
+        });
+        engine.spacing(function (a, b) {
+            return a.parent == b.parent ?
+                5 : engine.rootXSize();
         })
     }
     else if (test_case.sizing == "node-size-fixed") {
@@ -85,7 +89,8 @@ d3.json('flextree.json', function (err, tree) {
         var nodeEnter = node.enter().append("g")
             .attr("class", "node")
             .attr("transform", function (d) {
-                return "translate(" + source.y0 + "," + source.x0 + ")";
+                var x_size = source.x_size ? source.x_size : 0;
+                return "translate(" + source.y0 + "," + (source.x0 - x_size / 2) + ")";
             })
             .on("click", click);
 
@@ -98,18 +103,18 @@ d3.json('flextree.json', function (err, tree) {
                         return d.id;
                     },
                     fill: 'black',
-                    dx: 5,
+                    //dx: 5,
                     dy: "0.35em"
                 })
                 .html(function (d) {
-                    return '<tspan x="2" dy="-1em">'+ d.name +'</tspan>' +
-                        '<tspan x="2" dy="1.2em">'+ d.name +'</tspan>'+
-                        '<tspan x="2" dy="1.2em">'+ d.name +'</tspan>';
+                    return parseText(d.content);
                 })
                 ;
             engine.nodeSize(function (d) {
-                var ele_size = document.getElementById(d.id).getBBox();
-                return [ele_size["height"] + 30, ele_size["width"] + 20];
+                var ele = document.getElementById(d.id),
+                    ele_size = ele.getBBox();
+                //ele.setAttribute('dy', (ele_size["width"] + 20)/2);
+                return [ele_size["height"] + 30, ele_size["width"] + 14];
             });
         }
 
@@ -193,7 +198,7 @@ d3.json('flextree.json', function (err, tree) {
             .duration(duration)
             .attr("transform", function (d) {
                 d.y = d.depth * 180;
-                return "translate(" + svg_x(d.y) + "," + svg_y(d.x) + ")";
+                return "translate(" + svg_x(d.y) + "," + (svg_y(d.x)-(d.x_size * scale - nodebox_vertical_margin) / 2) + ")";
             });
         nodeEnter.append("rect")
             //.attr("data-id", function (d) {
@@ -201,9 +206,9 @@ d3.json('flextree.json', function (err, tree) {
             //})
             .attr({
                 x: 0,
-                y: function (d) {
-                    return -(d.x_size * scale - nodebox_vertical_margin) / 2;
-                },
+                //y: function (d) {
+                //    return -(d.x_size * scale - nodebox_vertical_margin) / 2;
+                //},
                 rx: 6,
                 ry: 6,
                 width: function (d) {
@@ -217,7 +222,7 @@ d3.json('flextree.json', function (err, tree) {
         node.exit().transition()
             .duration(duration)
             .attr("transform", function (d) {
-                return "translate(" + (source.y) + "," + svg_y(source.x) + ")";
+                return "translate(" + (source.y) + "," + (svg_y(source.x)-(source.x_size * scale - nodebox_vertical_margin)/2) + ")";
             })
             .remove();
 
@@ -316,5 +321,15 @@ d3.json('flextree.json', function (err, tree) {
             d._children = null;
         }
         update(d);
+    }
+    function parseText(text){
+        var arr = text.match(/.{1,20}/g),
+            len = arr.length;
+        //var result = '<tspan x="2" dy="1.5em">' + arr[0] + '</tspan>';
+        var result = '';
+        for(var i=0; i<len; i++){
+            result += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
+        }
+        return result;
     }
 });

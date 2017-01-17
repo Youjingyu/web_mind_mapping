@@ -126,3 +126,10 @@ canvas{
 .ghostCircle, .activeDrag .ghostCircle{
     display: none;
 }
+
+tspan{
+    font-size: 14px;
+}
+text{
+    dominant-baseline: middle;
+}
