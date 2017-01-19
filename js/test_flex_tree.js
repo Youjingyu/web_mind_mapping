@@ -66,7 +66,7 @@ d3.json('flextree.json', function (err, tree) {
 
     var client_width = document.documentElement.clientWidth,
         client_height = document.documentElement.clientHeight;
-
+    var $modal_cell = d3.select('#modal_ceel');
     var svg = d3.select("#drawing").append('svg').attr("width", client_width).attr("height", client_height);
     var svg_g = svg.append("g");
         //.attr("transform", "translate(" + 20 + "," + client_height/2 + ")");
@@ -108,8 +108,14 @@ d3.json('flextree.json', function (err, tree) {
                 })
                 .html(function (d) {
                     return parseText(d.content);
-                })
-                ;
+                });
+            //nodeEnter.html(function(d){
+            //    if(/^(\.\/)?img\//.test(d.content)){
+            //        return '<text id="'+ d.id +'" xlink:href="' + d.content + '" height="50px" width="50px"/>'
+            //    } else {
+            //        return '<text id="'+ d.id +'" fill="black" dy="0.35em">'+ parseText(d.content) +'</text>'
+            //    }
+            //});
             engine.nodeSize(function (d) {
                 var ele = document.getElementById(d.id),
                     ele_size = ele.getBBox();
@@ -323,13 +329,18 @@ d3.json('flextree.json', function (err, tree) {
         update(d);
     }
     function parseText(text){
-        var arr = text.match(/.{1,20}/g),
-            len = arr.length;
-        //var result = '<tspan x="2" dy="1.5em">' + arr[0] + '</tspan>';
-        var result = '';
-        for(var i=0; i<len; i++){
-            result += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
+        if(/^(\.\/)?img\//.test(text)){
+            $modal_cell.append('img').attr('id', text).attr('src', text);
+            return '<tspan x="2" dy="1.5em" path="' + text + '">点击查看图片</tspan>';
+        } else {
+            var arr = text.match(/.{1,20}/g),
+                len = arr.length;
+            //var result = '<tspan x="2" dy="1.5em">' + arr[0] + '</tspan>';
+            var result = '';
+            for(var i=0; i<len; i++){
+                result += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
+            }
+            return result;
         }
-        return result;
     }
 });
