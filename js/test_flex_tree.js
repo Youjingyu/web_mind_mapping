@@ -16,40 +16,16 @@ var margin = {
 d3.json('flextree.json', function (err, tree) {
 
     engine = d3.layout.tree().setNodeSizes(true);
-    // gap
-    if (test_case.gap == "separation-1") {
-        engine.separation(function (a, b) {
-            return 1;
-        });
-    }
-    else if (test_case.gap == "spacing-0") {
-        engine.spacing(function (a, b) {
-            return 0;
-        });
-    }
-    else if (test_case.gap == "spacing-custom") {
-        engine.spacing(function (a, b) {
-            return a.parent == b.parent ?
-                4 : engine.rootXSize();
-        })
-    }
 
     // sizing
-    if (test_case.sizing == "node-size-function") {
-        engine.nodeSize(function (t) {
-            return [t.x_size, t.y_size];
-        });
-        engine.spacing(function (a, b) {
-            return a.parent == b.parent ?
-                5 : engine.rootXSize();
-        })
-    }
-    else if (test_case.sizing == "node-size-fixed") {
-        engine.nodeSize([50, 50]);
-    }
-    else if (test_case.sizing == "size") {
-        engine.size([200, 100]);
-    }
+    engine.nodeSize(function (t) {
+        return [t.x_size, t.y_size];
+    });
+    // gap
+    engine.spacing(function (a, b) {
+        return a.parent == b.parent ?
+            5 : engine.rootXSize();
+    });
 
     tree.x0 = height / 2;
     tree.y0 = 0;
@@ -62,15 +38,23 @@ d3.json('flextree.json', function (err, tree) {
         }
     }
     //tree.children.forEach(collapse);
-
+    // modal event
+    var $modal = d3.select('#modal'),
+        $modal_cell = $modal.select('.modal-cell'),
+        $modal_img = $modal.select('img');
+    $modal.on("click.mask", function(){
+        $modal.attr('style', 'display: none');
+        $modal.select('img').attr('style', 'display: none');
+    });
+    $modal_img.on("click.img", function(){
+        d3.event.stopPropagation();
+    });
 
     var client_width = document.documentElement.clientWidth,
         client_height = document.documentElement.clientHeight;
-    var $modal_cell = d3.select('#modal_ceel');
     var svg = d3.select("#drawing").append('svg').attr("width", client_width).attr("height", client_height);
     var svg_g = svg.append("g");
         //.attr("transform", "translate(" + 20 + "," + client_height/2 + ")");
-
     svg.call(d3.behavior.zoom().scaleExtent([0.5,3]).on("zoom", redraw));
 
 
@@ -107,7 +91,15 @@ d3.json('flextree.json', function (err, tree) {
                     dy: "0.35em"
                 })
                 .html(function (d) {
-                    return parseText(d.content);
+                    var result = parseText(d.content);
+                    if(result.type === "img"){
+                        d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
+
+                            $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
+                            $modal.attr("style", "display: block");
+                        })
+                    }
+                    return result.content;
                 });
             //nodeEnter.html(function(d){
             //    if(/^(\.\/)?img\//.test(d.content)){
@@ -329,18 +321,23 @@ d3.json('flextree.json', function (err, tree) {
         update(d);
     }
     function parseText(text){
+        var result = {
+            type: 'text',
+            content: ''
+        };
         if(/^(\.\/)?img\//.test(text)){
-            $modal_cell.append('img').attr('id', text).attr('src', text);
-            return '<tspan x="2" dy="1.5em" path="' + text + '">点击查看图片</tspan>';
+            result.type = 'img';
+            result.img_id = text.replace(/[\/\.]/g, '');
+            $modal_cell.append('img').attr('id', result.img_id).attr('src', text).attr('style', 'display:none');
+            result.content =  '<tspan x="2" dy="1.5em" path="' + text + '">点击查看图片</tspan>';
         } else {
             var arr = text.match(/.{1,20}/g),
                 len = arr.length;
             //var result = '<tspan x="2" dy="1.5em">' + arr[0] + '</tspan>';
-            var result = '';
             for(var i=0; i<len; i++){
-                result += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
+                result.content += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
             }
-            return result;
         }
+        return result;
     }
 });
