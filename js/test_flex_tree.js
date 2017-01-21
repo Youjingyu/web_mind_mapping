@@ -59,6 +59,7 @@ d3.json('flextree.json', function (err, tree) {
 
 
     update(tree);
+    var is_init = 1;
     function update(source){
         // First get the bag of nodes in the right order
         var nodes = d3.layout.hierarchy()(tree);
@@ -94,7 +95,6 @@ d3.json('flextree.json', function (err, tree) {
                     var result = parseText(d.content);
                     if(result.type === "img"){
                         d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
-
                             $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
                             $modal.attr("style", "display: block");
                         })
@@ -294,7 +294,7 @@ d3.json('flextree.json', function (err, tree) {
             d.y0 = svg_x(d.y);
         });
     }
-
+    i++;
     // Set the svg drawing size and translation
 
     //svg.attr({
