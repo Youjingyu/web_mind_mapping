@@ -14,86 +14,28 @@ canvas{
     clear: both;
 }
 
-.add-icon-con{
-    position: absolute;
-    margin: auto;
-    right: -9px;
-    top: 0;
-    bottom: 0;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    line-height: 18px;
-    background-color: cadetblue;
-    cursor: pointer;
+.drawing{
+    visibility: hidden;
+    animation: drawingframe;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-delay: 1s;
+    /* Safari 与 Chrome: */
+    -webkit-animation: drawingframe 1s linear 1s;
+}
+@keyframes drawingframe
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@-webkit-keyframes drawingframe /* Safari and Chrome */
+{
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
-.add-icon{
-    font-style: normal;
-    margin-left: 6px;
-}
-
-.first,.second{
-    float: left;
-    position: relative;
-    /*height: 100%;*/
-    width: 200px;
-    word-wrap : break-word;
-}
-
-.second{
-    display: none;
-}
-
-.one-to-two{
-    float: left;
-    width: 100px;
-    height: 800px;
-}
-
-.first-menu{
-    /*margin-top: 250px;*/
-    width: 198px;
-    height: 98px;
-    border: 1px solid darkgreen;
-    border-radius: 2px;
-    background-color: aquamarine;
-}
-
-.menu{
-    width: 198px;
-    border: 1px solid darkgreen;
-    border-radius: 2px;
-    background-color: aquamarine;
-}
-
-.menu:not(:first-child){
-    margin-top: 70px;
-}
-
-/*.test-con{*/
-    /*width: 200px;*/
-    /*height: 200px;*/
-    /*position: relative;*/
-    /*background-color: cadetblue;*/
-/*}*/
-/*.test{*/
-    /*position: absolute;*/
-    /*margin: auto;*/
-    /*width: 100px;*/
-    /*height: 100px;*/
-    /*right: 0;*/
-    /*left: 0;*/
-    /*top: 0;*/
-    /*bottom: 0;*/
-    /*background-color: antiquewhite;*/
-/*}*/
 .node {
     cursor: pointer;
-}
-
-.overlay{
-    background-color:#EEE;
 }
 
 .node circle {
@@ -103,28 +45,14 @@ canvas{
 }
 
 .node text {
-    font-size:10px;
-    font-family:sans-serif;
+    font-size: 10px;
+    font-family: sans-serif;
 }
 
 .link {
     fill: none;
     stroke: #ccc;
     stroke-width: 1.5px;
-}
-
-.templink {
-    fill: none;
-    stroke: red;
-    stroke-width: 3px;
-}
-
-.ghostCircle.show{
-    display:block;
-}
-
-.ghostCircle, .activeDrag .ghostCircle{
-    display: none;
 }
 
 .modal{

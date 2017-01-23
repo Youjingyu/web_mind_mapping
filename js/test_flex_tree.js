@@ -1,10 +1,5 @@
-var test_case = {
-        "name": "flare",
-        "sizing": "node-size-function",
-        "gap": "spacing-0"
-    },
-    engine;
-var duration = 750;
+var engine,
+    duration = 750;
 var margin = {
         top: 20,
         right: 120,
@@ -37,30 +32,33 @@ d3.json('flextree.json', function (err, tree) {
             d.children = null;
         }
     }
-    //tree.children.forEach(collapse);
+
     // modal event
     var $modal = d3.select('#modal'),
-        $modal_cell = $modal.select('.modal-cell'),
-        $modal_img = $modal.select('img');
+        $modal_cell = $modal.select('.modal-cell');
     $modal.on("click.mask", function(){
+        if(d3.event.target.nodeName === 'IMG'){
+            return false;
+        }
         $modal.attr('style', 'display: none');
         $modal.select('img').attr('style', 'display: none');
-    });
-    $modal_img.on("click.img", function(){
-        d3.event.stopPropagation();
     });
 
     var client_width = document.documentElement.clientWidth,
         client_height = document.documentElement.clientHeight;
     var svg = d3.select("#drawing").append('svg').attr("width", client_width).attr("height", client_height);
     var svg_g = svg.append("g");
-        //.attr("transform", "translate(" + 20 + "," + client_height/2 + ")");
     svg.call(d3.behavior.zoom().scaleExtent([0.5,3]).on("zoom", redraw));
 
-
     update(tree);
-    var is_init = 1;
-    function update(source){
+    tree.children.forEach(collapse);
+    update(tree, function(){
+        setTimeout(function(){
+            d3.select("#drawing").style({'visibility': 'visible'});
+        },1000);
+    });
+
+    function update(source, callback){
         // First get the bag of nodes in the right order
         var nodes = d3.layout.hierarchy()(tree);
         // Then get started drawing, including, in the case of flare,
@@ -79,42 +77,29 @@ d3.json('flextree.json', function (err, tree) {
             })
             .on("click", click);
 
-        // In the case of flare, create the node text now, which is used
-        // in the layout.
-        if (test_case.name == "flare") {
-            var text_elements = nodeEnter.append("text")
-                .attr({
-                    id: function (d) {
-                        return d.id;
-                    },
-                    fill: 'black',
-                    //dx: 5,
-                    dy: "0.35em"
-                })
-                .html(function (d) {
-                    var result = parseText(d.content);
-                    if(result.type === "img"){
-                        d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
-                            $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
-                            $modal.attr("style", "display: block");
-                        })
-                    }
-                    return result.content;
-                });
-            //nodeEnter.html(function(d){
-            //    if(/^(\.\/)?img\//.test(d.content)){
-            //        return '<text id="'+ d.id +'" xlink:href="' + d.content + '" height="50px" width="50px"/>'
-            //    } else {
-            //        return '<text id="'+ d.id +'" fill="black" dy="0.35em">'+ parseText(d.content) +'</text>'
-            //    }
-            //});
-            engine.nodeSize(function (d) {
-                var ele = document.getElementById(d.id),
-                    ele_size = ele.getBBox();
-                //ele.setAttribute('dy', (ele_size["width"] + 20)/2);
-                return [ele_size["height"] + 30, ele_size["width"] + 14];
+        var text_elements = nodeEnter.append("text")
+            .attr({
+                id: function (d) {
+                    return d.id;
+                },
+                fill: 'black',
+                dy: "0.35em"
+            })
+            .html(function (d) {
+                var result = parseText(d.content);
+                if(result.type === "img"){
+                    d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
+                        $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
+                        $modal.attr("style", "display: block");
+                    })
+                }
+                return result.content;
             });
-        }
+        engine.nodeSize(function (d) {
+            var ele = document.getElementById(d.id),
+                ele_size = ele.getBBox();
+            return [ele_size["height"] + 30, ele_size["width"] + 14];
+        });
 
         // *Now* do the layout
         nodes = engine.nodes(tree);
@@ -144,31 +129,18 @@ d3.json('flextree.json', function (err, tree) {
             x_size_min = Math.min(x_size_min, n.x_size);
             y_size_min = Math.min(y_size_min, n.y_size);
         });
-        var area_ave = area_sum / nodes.length;
-        // scale such that the average node size is 400 px^2
-        //console.log("area_ave = " + area_ave);
-        var scale = test_case.name == "flare" ? 1 : 80 / Math.sqrt(area_ave);
-        //console.log("extents = %o", {
-        //    xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax
-        //});
-        //console.log("scale = " + scale);
+        var scale = 1;
 
         // Functions to get the derived svg coordinates given the tree node
         // coordinates.
         // Note that the x-y orientations between the svg and the tree drawing
         // are reversed.
-
         function svg_x(node_y) {
             return (node_y - ymin) * scale;
         }
-
         function svg_y(node_x) {
             return (node_x - xmin) * scale;
         }
-
-
-        // FIXME: need to implement these -- the max value should not
-        // be scaled.
 
         // The node box is drawn smaller than the actual node width, to
         // allow room for the diagonal. Note that these are in units of
@@ -182,13 +154,7 @@ d3.json('flextree.json', function (err, tree) {
             return 80 + Math.floor(Math.random() * 100);
         }
 
-        //var filler = test_case.name != "flare"
-        //    ? function () {
-        //    return "fill: rgb(" + rand() + "," + rand() + "," + rand() + ")";
-        //}
-        //    : "fill: none";
         var filler = function () {
-            //return "fill: rgb(" + rand() + "," + rand() + "," + rand() + ")";
             return "fill-opacity: 0; stroke:rgb(" + rand() + "," + rand() + "," + rand() + ")"
         };
         // Reposition everything according to the layout
@@ -199,14 +165,8 @@ d3.json('flextree.json', function (err, tree) {
                 return "translate(" + svg_x(d.y) + "," + (svg_y(d.x)-(d.x_size * scale - nodebox_vertical_margin) / 2) + ")";
             });
         nodeEnter.append("rect")
-            //.attr("data-id", function (d) {
-            //    return d.id;
-            //})
             .attr({
                 x: 0,
-                //y: function (d) {
-                //    return -(d.x_size * scale - nodebox_vertical_margin) / 2;
-                //},
                 rx: 6,
                 ry: 6,
                 width: function (d) {
@@ -238,7 +198,7 @@ d3.json('flextree.json', function (err, tree) {
                 return [svg_x(d.y), svg_y(d.x)];
             })
             ;
-        var test_diagonal = d3.svg.diagonal()
+        var enter_diagonal = d3.svg.diagonal()
             .source(function (d, i) {
                 var s = d.source;
                 return {
@@ -247,7 +207,6 @@ d3.json('flextree.json', function (err, tree) {
                 };
             })
             .projection(function (d) {
-                //return (node_y - ymin) * scale;
                 return [d.y, d.x];
             });
         var links = engine.links(nodes);
@@ -264,7 +223,7 @@ d3.json('flextree.json', function (err, tree) {
                     y: source.y0,
                     y_size: source.y_size
                 };
-                return test_diagonal({
+                return enter_diagonal({
                     source: o,
                     target: o
                 });
@@ -293,18 +252,11 @@ d3.json('flextree.json', function (err, tree) {
             d.x0 = svg_y(d.x);
             d.y0 = svg_x(d.y);
         });
+        callback && callback();
     }
-    i++;
-    // Set the svg drawing size and translation
 
-    //svg.attr({
-    //    width: (ymax - ymin) * scale,
-    //    height: (xmax - xmin) * scale
-    //});
-
-//Redraw for zoom
+    //Redraw for zoom
     function redraw() {
-        //console.log("here", d3.event.translate, d3.event.scale);
         svg_g.attr("transform",
             "translate(" + d3.event.translate + ")"
             + " scale(" + d3.event.scale + ")");
@@ -320,6 +272,7 @@ d3.json('flextree.json', function (err, tree) {
         }
         update(d);
     }
+    // wrap text line
     function parseText(text){
         var result = {
             type: 'text',
@@ -328,12 +281,13 @@ d3.json('flextree.json', function (err, tree) {
         if(/^(\.\/)?img\//.test(text)){
             result.type = 'img';
             result.img_id = text.replace(/[\/\.]/g, '');
-            $modal_cell.append('img').attr('id', result.img_id).attr('src', text).attr('style', 'display:none');
+            if($modal_cell.select('#' + result.img_id)[0][0] === null){
+                $modal_cell.append('img').attr('id', result.img_id).attr('src', text).attr('style', 'display:none');
+            }
             result.content =  '<tspan x="2" dy="1.5em" path="' + text + '">点击查看图片</tspan>';
         } else {
             var arr = text.match(/.{1,20}/g),
                 len = arr.length;
-            //var result = '<tspan x="2" dy="1.5em">' + arr[0] + '</tspan>';
             for(var i=0; i<len; i++){
                 result.content += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
             }
