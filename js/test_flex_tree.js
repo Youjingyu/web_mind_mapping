@@ -89,17 +89,19 @@ d3.json('flextree.json', function (err, tree) {
                 },
                 fill: 'black',
                 dy: "0.35em"
-            })
-            .html(function (d) {
-                var result = parseText(d.content);
-                if(result.type === "img"){
-                    d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
-                        $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
-                        $modal.attr("style", "display: block");
-                    })
-                }
-                return result.content;
+            }).each(function(d){
+                parseText(this, d);
             });
+            //.html(function (d) {
+            //    var result = parseText(d.content);
+            //    if(result.type === "img"){
+            //        d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
+            //            $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
+            //            $modal.attr("style", "display: block");
+            //        })
+            //    }
+            //    return result.content;
+            //});
         engine.nodeSize(function (d) {
             var ele = document.getElementById(d.id),
                 ele_size = ele.getBBox();
@@ -316,21 +318,22 @@ d3.json('flextree.json', function (err, tree) {
         update(d);
     }
     // wrap text line
-    function parseText(text){
-        var result = {
-            type: 'text',
-            content: ''
-        };
-        if(/^(\.\/)?img\//.test(text)){
-            result.type = 'img';
-            result.img_id = text.replace(/[\/\.]/g, '');
-            if($modal_cell.select('#' + result.img_id)[0][0] === null){
-                $modal_cell.append('img').attr('id', result.img_id).attr('src', text).attr('style', 'display:none');
+    function parseText(text_tag, d){
+        var $text = d3.select(text_tag),
+            content = d.content;
+        if(/^(\.\/)?img\//.test(content)){
+            var img_id = content.replace(/[\/\.]/g, '');
+            if($modal_cell.select('#' + img_id)[0][0] === null){
+                $modal_cell.append('img').attr('id', img_id).attr('src', content).attr('style', 'display:none');
             }
-            result.content =  '<tspan x="2" dy="1.5em" path="' + text + '">点击查看图片</tspan>';
+            $text.append('tspan').attr({x: '2', dy: '1.5em', path: content}).text('点击查看图片');
+            d3.select(text_tag.parentNode).attr('img_id', img_id).on("click.show", function(){
+                            $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
+                            $modal.attr("style", "display: block");
+                        });
         } else {
             var len = 0, split_str = '', reg = /[^\x00-\xff]/;
-            var split_arr = text.split(''),
+            var split_arr = content.split(''),
                 split_arr_len = split_arr.length - 1;
             split_arr.forEach(function(val, i){
                 if(reg.test(val)){
@@ -340,12 +343,11 @@ d3.json('flextree.json', function (err, tree) {
                 }
                 split_str += val;
                 if(len >= 30 || i >= split_arr_len){
-                    result.content += '<tspan x="2" dy="1.5em">' + split_str + '</tspan>';
+                    $text.append('tspan').attr({x: '2', dy: '1.5em'}).text(split_str);
                     len = 0;
                     split_str = '';
                 }
             });
         }
-        return result;
     }
 });

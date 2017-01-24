@@ -1,11 +1,7 @@
 body{
     height: 100%;
     margin: 0;
-}
-
-canvas{
-    height: 100%;
-    width: 100px;
+    overflow: hidden;
 }
 
 .clear-fix:before,.clear-fix:after{
@@ -21,7 +17,7 @@ canvas{
     animation-duration: 1s;
     animation-timing-function: linear;
     animation-delay: 1s;
-    /* Safari ä¸Ž Chrome: */
+    /* Safari ä¸? Chrome: */
     -webkit-animation: drawingframe 1s linear 1s;
 }
 @keyframes drawingframe
@@ -95,7 +91,9 @@ canvas{
     vertical-align: middle;
     text-align: center;
 }
-
+.modal-cell img{
+    max-height: 95%;
+}
 .modal-close{
     display: inline-block;
     position: absolute;

@@ -19,7 +19,7 @@
                 },
                 {
                   "content" : "每个单元格之间用padding设置间距，首尾单元格的padding用每行(.row)的margin取负值抵消",
-                  "children": []
+                  "children": [{"content": "img/网格系统原理.jpg"}]
                 }
               ]
             },
@@ -57,7 +57,7 @@
           "children": [
             {
               "content" : "部分排版分类",
-              "children": []
+              "children": [{"content": "img/排版.png"}]
             }
           ]
         },
