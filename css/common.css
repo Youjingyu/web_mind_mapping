@@ -16,6 +16,7 @@ canvas{
 
 .drawing{
     visibility: hidden;
+    font-weight: bold;
     animation: drawingframe;
     animation-duration: 1s;
     animation-timing-function: linear;
@@ -34,7 +35,7 @@ canvas{
     to {opacity: 1;}
 }
 
-.node {
+.node g{
     cursor: pointer;
 }
 
@@ -44,9 +45,10 @@ canvas{
     stroke-width: 1.5px;
 }
 
-.node text {
-    font-size: 10px;
-    font-family: sans-serif;
+.node line{
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }
 
 .link {

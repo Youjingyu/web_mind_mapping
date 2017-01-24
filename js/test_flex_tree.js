@@ -1,3 +1,5 @@
+var minus_base64 = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjQ2cHgiIGhlaWdodD0iNDZweCIgdmlld0JveD0iMCAwIDQ2IDQ2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NiA0NjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGcgaWQ9IkNhbmNlbCI+DQoJPGc+DQoJCTxwYXRoIGQ9Ik0yMywwQzEwLjI5OCwwLDAsMTAuMjk4LDAsMjNzMTAuMjk4LDIzLDIzLDIzczIzLTEwLjI5OCwyMy0yM1MzNS43MDIsMCwyMywweiBNMjMsNDJDMTIuNTA3LDQyLDQsMzMuNDkzLDQsMjMNCgkJCVMxMi41MDcsNCwyMyw0czE5LDguNTA3LDE5LDE5UzMzLjQ5Myw0MiwyMyw0MnogTTMwLjUsMjFoLTE1Yy0wLjgyOCwwLTEuNSwwLjY3Mi0xLjUsMS41djFjMCwwLjgyOCwwLjY3MiwxLjUsMS41LDEuNWgxNQ0KCQkJYzAuODI4LDAsMS41LTAuNjcyLDEuNS0xLjV2LTFDMzIsMjEuNjcyLDMxLjMyOCwyMSwzMC41LDIxeiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K",
+    add_base64 = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjQ2cHgiIGhlaWdodD0iNDZweCIgdmlld0JveD0iMCAwIDQ2IDQ2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NiA0NjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGcgaWQ9IkFkZCI+DQoJPGc+DQoJCTxwYXRoIGQ9Ik0yMywwQzEwLjI5OCwwLDAsMTAuMjk4LDAsMjNzMTAuMjk4LDIzLDIzLDIzczIzLTEwLjI5OCwyMy0yM1MzNS43MDIsMCwyMywweiBNMjMsNDJDMTIuNTA3LDQyLDQsMzMuNDkzLDQsMjMNCgkJCVMxMi41MDcsNCwyMyw0czE5LDguNTA3LDE5LDE5UzMzLjQ5Myw0MiwyMyw0MnogTTMwLjUsMjFIMjV2LTUuNWMwLTAuODI4LTAuNjcyLTEuNS0xLjUtMS41aC0xYy0wLjgyOCwwLTEuNSwwLjY3Mi0xLjUsMS41VjIxDQoJCQloLTUuNWMtMC44MjgsMC0xLjUsMC42NzItMS41LDEuNXYxYzAsMC44MjgsMC42NzIsMS41LDEuNSwxLjVIMjF2NS41YzAsMC44MjgsMC42NzIsMS41LDEuNSwxLjVoMWMwLjgyOCwwLDEuNS0wLjY3MiwxLjUtMS41VjI1DQoJCQloNS41YzAuODI4LDAsMS41LTAuNjcyLDEuNS0xLjV2LTFDMzIsMjEuNjcyLDMxLjMyOCwyMSwzMC41LDIxeiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K";
 var engine,
     duration = 750;
 var margin = {
@@ -41,7 +43,7 @@ d3.json('flextree.json', function (err, tree) {
             return false;
         }
         $modal.attr('style', 'display: none');
-        $modal.select('img').attr('style', 'display: none');
+        $modal.selectAll('img').attr('style', 'display: none');
     });
 
     var client_width = document.documentElement.clientWidth,
@@ -54,7 +56,10 @@ d3.json('flextree.json', function (err, tree) {
     tree.children.forEach(collapse);
     update(tree, function(){
         setTimeout(function(){
-            d3.select("#drawing").style({'visibility': 'visible'});
+            d3.select("#drawing").style({'visibility': "visible"});
+            d3.selectAll(".node").each(function(d, i){
+                i > 0 && (d3.select(this).select(".vertical-line").style('display', 'block'));
+            });
         },1000);
     });
 
@@ -74,8 +79,8 @@ d3.json('flextree.json', function (err, tree) {
             .attr("transform", function (d) {
                 var x_size = source.x_size ? source.x_size : 0;
                 return "translate(" + source.y0 + "," + (source.x0 - x_size / 2) + ")";
-            })
-            .on("click", click);
+            });
+            //.on("click", click);
 
         var text_elements = nodeEnter.append("text")
             .attr({
@@ -175,8 +180,44 @@ d3.json('flextree.json', function (err, tree) {
                 height: function (d) {
                     return d.x_size * scale - nodebox_vertical_margin;
                 },
-                style: filler
-            });
+                style: function(d){
+                    return d.filler = filler();
+                }
+            })
+            .attr('next', function(d){
+                if(d.children || d._children){
+                    var $g = d3.select(this.parentNode).append('g').attr({
+                        transform: 'translate(' + (d.y_size - 6) +  ',' + (d.x_size/2 - 5) + ')'
+                    }).on("click", click);
+                    $g.append('circle').attr({
+                        r: '7',
+                        cx: 3.5,
+                        cy: 3.5,
+                        style: 'stroke:' + d.filler
+                    });
+                    $g.append('line').attr({
+                        x1: 0,
+                        y1: 3.5,
+                        x2: 7,
+                        y2: 3.5,
+                        style: 'stroke:' + d.filler
+                    });
+                    var $vertical_line =  $g.append('line').attr({
+                        x1: 3.5,
+                        y1: 0,
+                        x2: 3.5,
+                        y2: 7,
+                        style: 'stroke:' + d.filler
+                    }).classed('vertical-line', true);
+                    if(d._children){
+                        $vertical_line.style('display', 'block');
+                    } else {
+                        $vertical_line.style('display', 'none');
+                    }
+                    return true
+                }
+                return false
+        });
         node.exit().transition()
             .duration(duration)
             .attr("transform", function (d) {
@@ -264,9 +305,11 @@ d3.json('flextree.json', function (err, tree) {
     // Toggle children on click.
     function click(d) {
         if (d.children) {
+            d3.select(this).select('.vertical-line').style('display', 'block');
             d._children = d.children;
             d.children = null;
         } else {
+            d3.select(this).select('.vertical-line').style('display', 'none');
             d.children = d._children;
             d._children = null;
         }
@@ -286,11 +329,22 @@ d3.json('flextree.json', function (err, tree) {
             }
             result.content =  '<tspan x="2" dy="1.5em" path="' + text + '">点击查看图片</tspan>';
         } else {
-            var arr = text.match(/.{1,20}/g),
-                len = arr.length;
-            for(var i=0; i<len; i++){
-                result.content += '<tspan x="2" dy="1.5em">' + arr[i] + '</tspan>';
-            }
+            var len = 0, split_str = '', reg = /[^\x00-\xff]/;
+            var split_arr = text.split(''),
+                split_arr_len = split_arr.length - 1;
+            split_arr.forEach(function(val, i){
+                if(reg.test(val)){
+                    len += 2;
+                } else {
+                    len += 1;
+                }
+                split_str += val;
+                if(len >= 30 || i >= split_arr_len){
+                    result.content += '<tspan x="2" dy="1.5em">' + split_str + '</tspan>';
+                    len = 0;
+                    split_str = '';
+                }
+            });
         }
         return result;
     }
