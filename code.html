@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <code id="grid_system">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4  col-md-6  col-sm-8  col-xs-10"></div>
+                <div class="col-lg-8  col-md-6  col-sm-4  col-xs-2"></div>
+            </div>
+            <div class="row">
+                <!--.row自带clearfix效果-->
+                <!--.container中也可以放置其他标签，以获得良好的对齐以及响应式的宽度-->
+            </div>
+        </div>
+    </code>
+    <code id="table_html">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </code>
+    <code id="table_response_html">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </code>
+    <code id="vertical_form_html">
+        <form role="form">
+            <div class="form-group">
+                <label for="name">名称</label>
+                <input type="text" class="form-control" id="name">
+            </div>
+            <div class="checkbox">
+                <!--checkbox、radio的类以及HTML结构与一般form控件不同-->
+                <!--Bootstrap使其对齐，并且使文本也可以响应选择框的点击事件-->
+                <label>
+                    <input type="checkbox">复选框
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio">单选框
+                </label>
+            </div>
+            <button type="submit">提交</button>
+        </form>
+    </code>
+    <code id="horizontal_form_html">
+        <form class="form-horizontal" role="form">
+            <!--.form-horizontal下的.form-group具有负边距，相当于.row-->
+            <div class="form-group">
+                <label for="firstname" class="col-sm-2 control-label">名字</label>
+                <!--.control-label设置文字右对齐-->
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="firstname">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> 请记住我
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </code>
+    <code id="icon_html">
+        <!--css引入图标-->
+        <!--.glyphicon-search :before {content: “\e008”;}-->
+        <span class="glyphicon glyphicon-search"></span>
+    </code>
+</body>
+</html>

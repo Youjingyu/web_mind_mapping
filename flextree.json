@@ -1,87 +1,294 @@
 {
-  "content" : "Bootstrap简介",
-  "children" : [
+  "content": "Bootstrap简介",
+  "children": [
     {
-      "content" : "基础css",
+      "content": "基础css",
       "children": [
         {
-          "content" : "网格系统",
+          "content": "网格系统",
           "children": [
             {
-              "content" : "HTML结构",
-              "children": [{"content": "img/HTML结构.png"}]
-            },
-            {
-              "content" : "实现原理",
+              "content": "HTML结构",
               "children": [
                 {
-                  "content" : "将容器.container等分为12列（可以在less编译时设置变量，等分为任意列数），每列向左浮动，超过12列则换行显示"
-                },
-                {
-                  "content" : "每个单元格之间用padding设置间距，首尾单元格的padding用每行(.row)的margin取负值抵消",
-                  "children": [{"content": "img/网格系统原理.jpg"}]
+                  "content": {
+                    "type": "html_code",
+                    "id": "grid_system"
+                  }
                 }
               ]
             },
             {
-              "content" : "css前缀说明",
+              "content": "实现原理",
               "children": [
-                {"content" : ".col-xs-：所有宽度屏幕，水平显示"},
-                {"content" : ".col-sm-：屏幕宽度>768px，水平显示"},
-                {"content" : ".col-md-：屏幕宽度>992px，水平显示"},
-                {"content" : ".col-lg-：屏幕宽度>1200px，水平显示"},
-                {"content" : "屏幕不在宽度范围内，元素折叠显示"}
+                {
+                  "content": "将容器.container等分为12列（可以在less编译时设置变量，等分为任意列数），每列向左浮动，超过12列则换行显示"
+                },
+                {
+                  "content": "每个单元格之间用padding设置间距，首尾单元格的padding用每行(.row)的margin取负值抵消",
+                  "children": [
+                    {
+                      "content": "img/grid_system.jpg"
+                    }
+                  ]
+                }
               ]
             },
             {
-              "content" : "辅助类",
+              "content": "css前缀说明",
               "children": [
                 {
-                  "content" : ".col-md-offset-*：偏移列，左边空出*列，设置margin-left实现"
+                  "content": ".col-xs-：所有宽度屏幕，水平显示"
                 },
                 {
-                  "content" : "col-md-push-*：列排序，距离左边界*列，设置left属性实现"
+                  "content": ".col-sm-：屏幕宽度>768px，水平显示"
+                },
+                {
+                  "content": ".col-md-：屏幕宽度>992px，水平显示"
+                },
+                {
+                  "content": ".col-lg-：屏幕宽度>1200px，水平显示"
+                },
+                {
+                  "content": "屏幕不在宽度范围内，元素折叠显示"
+                }
+              ]
+            },
+            {
+              "content": "辅助类",
+              "children": [
+                {
+                  "content": ".col-md-offset-*：偏移列，左边空出*列，设置margin-left实现"
+                },
+                {
+                  "content": "col-md-push-*：列排序，距离左边界*列，设置left属性实现"
                 },
                 {
                   "content": ".col-md-pull：列排序，距离右边界*列"
                 },
                 {
-                  "content" : ".col-md-offset-*与.col-md-push-* 效果类似，但前者不能实现列的重排"
+                  "content": ".col-md-offset-*与.col-md-push-* 效果类似，但前者不能实现列的重排"
                 }
               ]
             }
           ]
         },
         {
-          "content" : "排版",
+          "content": "排版",
           "children": [
             {
-              "content" : "部分排版分类",
-              "children": [{"content": "img/排版.png"}]
+              "content": "部分排版分类",
+              "children": [
+                {
+                  "content": "img/typesetting.png"
+                }
+              ]
             }
           ]
         },
         {
-          "content" : "表格",
+          "content": "表格",
           "children": [
             {
-              "content" : "HTMl结构",
-              "children": []
+              "content": "HTMl结构",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "table_html"
+                  }
+                }
+              ]
             },
             {
               "content": "CSS",
               "children": [
-                {"content": ".table：添加表格基本样式，设置间距、边框、对齐等"},
-                {"content": ".table-condensed：使表格更加紧凑，减小padding实现"},
-                {"content": ".table-striped：斑马线表格，设置偶数行的背景色实现"},
-                {"content": ".table-bordered：添加表格边框"},
-                {"content": ".table-hover：tbody内的行具有鼠标悬停状态"},
+                {
+                  "content": ".table：添加表格基本样式，设置间距、边框、对齐等"
+                },
+                {
+                  "content": ".table-condensed：使表格更加紧凑，减小padding实现"
+                },
+                {
+                  "content": ".table-striped：斑马线表格，设置偶数行的背景色实现"
+                },
+                {
+                  "content": ".table-bordered：添加表格边框"
+                },
+                {
+                  "content": ".table-hover：tbody内的行具有鼠标悬停状态"
+                },
                 {
                   "content": ".table-responsive",
                   "children": [
-                    {"content": "响应式表格，让表格水平滚动以适应小型设备（小于 768px）"},
-                    {"content": "HTML结构", "children": []},
-                    {"content": "原理：在小屏幕下，设置overflow-x: auto;   white-space: nowrap"}
+                    {
+                      "content": "响应式表格，让表格水平滚动以适应小型设备（小于 768px）"
+                    },
+                    {
+                      "content": "HTML结构",
+                      "children": [
+                        {
+                          "content": {
+                            "type": "html_code",
+                            "id": "table_response_html"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "content": "原理：在小屏幕下，设置overflow-x: auto;   white-space: nowrap"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "content": "表单",
+          "children": [
+            {
+              "content": "默认表单（垂直表单）",
+              "children": [
+                {
+                  "content": "示例",
+                  "children": [
+                    {
+                      "content": "img/vertical_form.png"
+                    }
+                  ]
+                },
+                {
+                  "content": "HTML结构",
+                  "children": [
+                    {
+                      "content": {
+                        "type": "html_code",
+                        "id": "vertical_form_html"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "content": "CSS",
+                  "children": [
+                    {
+                      "content": ".form-group：使表单元素之间保持良好间距，并表现为block"
+                    },
+                    {
+                      "content": ".form-control：美化表单元素，获得焦点时具有样式变化(:focus)，并表现为block"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "content": "内联表单",
+              "children": [
+                {
+                  "content": "示例",
+                  "children": [
+                    {
+                      "content": "img/inline_form.png"
+                    }
+                  ]
+                },
+                {
+                  "content": "在基础表单的form标签加上.form-inline即可"
+                },
+                {
+                  "content": ".form-inline下的.form-group、.form-control类表现为inline-block"
+                }
+              ]
+            },
+            {
+              "content": "水平表单",
+              "children": [
+                {
+                  "content": "示例",
+                  "children": [
+                    {
+                      "content": "img/horizontal_form.png"
+                    }
+                  ]
+                },
+                {
+                  "content": "HTML结构",
+                  "children": [
+                    {
+                      "content": {
+                        "type": "html_code",
+                        "id": "horizontal_form_html"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "content": "在基础表单的基础加上.form-horizontal类，并用网格系统控制label和表单控件的布局"
+                }
+              ]
+            },
+            {
+              "content": "表单控件状态",
+              "children": [
+                {
+                  "content": ".disabled(禁用输入框)、.has-error(输入错误) 、 .has-success(输入正确)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "content": "按钮",
+          "children": [
+            {
+              "content": "img/button.png"
+            },
+            {
+              "content": "img/button_class.png"
+            }
+          ]
+        },
+        {
+          "content": "辅助类",
+          "children": [
+            {
+              "content": ".close：显示向右浮动的×按钮"
+            },
+            {
+              "content": ".caret：显示用border属性实现的三角形"
+            },
+            {
+              "content": "字体图标",
+              "children": [
+                {
+                  "content": "HTML结构",
+                  "children": [
+                    {
+                      "content": {
+                        "type": "html_code",
+                        "id": "icon_html"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "content": "原理",
+                  "children": [
+                    {
+                      "content": "用@font-face声明font-family和位置",
+                      "children": [
+                        {
+                          "content": {
+                            "type": "html_code",
+                            "id": "icon_html"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "content": ".glyphicon定义图标的基本样式"
+                    }
                   ]
                 }
               ]
@@ -92,7 +299,19 @@
     },
     {
       "content": "布局组件",
-      "children": []
+      "children": [
+        {
+          "content": "按钮",
+          "children": [
+            {
+              "content": "img/button.png"
+            },
+            {
+              "content": "img/button_class.png"
+            }
+          ]
+        }
+      ]
     },
     {
       "content": "插件",

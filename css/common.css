@@ -10,6 +10,10 @@ body{
     clear: both;
 }
 
+iframe{
+    display: none;
+}
+
 .drawing{
     visibility: hidden;
     font-weight: bold;
@@ -17,7 +21,6 @@ body{
     animation-duration: 1s;
     animation-timing-function: linear;
     animation-delay: 1s;
-    /* Safari ä¸? Chrome: */
     -webkit-animation: drawingframe 1s linear 1s;
 }
 @keyframes drawingframe
@@ -25,7 +28,7 @@ body{
     from {opacity: 0;}
     to {opacity: 1;}
 }
-@-webkit-keyframes drawingframe /* Safari and Chrome */
+@-webkit-keyframes drawingframe
 {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -93,6 +96,10 @@ body{
 }
 .modal-cell img{
     max-height: 95%;
+}
+.modal-code{
+    display: none;
+    margin: 0 auto !important;
 }
 .modal-close{
     display: inline-block;
