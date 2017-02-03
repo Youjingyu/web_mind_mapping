@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Json</title>
+    <style>
+        body > div{
+            margin-top: 20px;
+        }
+        /*.content{*/
+            /*display: table;*/
+        /*}*/
+        /*.content > div{*/
+            /*display: table-cell;*/
+        /*}*/
+        input{
+            height: 25px;
+            width: 300px;
+            vertical-align: middle;
+        }
+        i{
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+            background-size: 100%;
+        }
+        .add{
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAyAAAAMgADzko2IAAAAHdElNRQfgAg4NBiVVCXXjAAACFUlEQVRIx6XUvUuVYRgG8J8fgXTUiKiOkV+oQ6gQ4UcKIYKTVASZg6Ob4Jgubi4OLQ1ONTRIQxxI8A84LqakB5FTuFiLGkYNmpNYWMN71HP0ffVI9/RyPdd9Pfd1vc/z8J9VEIGXqdOkXgV++mLVmu18BWr16xGzYceeA5eVq7Yv6b3P501UbsS8d/pUKj5Ci9zS642UcfGz2u9ImNblUuhqoVYJs9qj2u+ZM6H8zAljxqx4HL77nOeK8oh9SFrnae8JE3m0BxKjkipywRHT5wyfXSWmTGQDteZ1hVI7wv1qtqQlSBb6bZgPJbZ5GIp/8sHAoUCZHgm/Q4kHDiJsTOsUDwTqxHzM2/9hrdjVHAg02bB1YYFf1rUFAvV2/ImgRVtg3W2KUWEvZ6FDW6btQLe44cyVK5Q2m8XbViFzYXJ3ua7xSCDuqsYjgW+nxyjGDzdysBkzR9/DGg1FWChVEGTwVXnkIS6IfHKo8T0QWFXt5oX/QqkqS4HAmn13LyzQ5Jp0ILAt6VnmUJ+swgicp5ZtHqultIbSuvWF4g0WPcgGxiXE8h6/2KTXWW8m4maNnZF4bg1aUHcSbLdiKC+JJ1J6wxYeSRtVcs7wg1IRuaBT0pTmyPYGkxbCdz/OYsKSl7pcycFL3ffColcnvYd5bjGg065167ZRqkaVa5a9tXDy4keFFtesVWWGsyUlbdPfPCK+aP0DrTF1yEQQ8o4AAAAldEVYdGRhdGU6Y3JlYXRlADIwMTYtMDktMTdUMTU6MjI6MDkrMDg6MDAgAf0BAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE2LTAyLTE0VDEzOjA2OjM3KzA4OjAw/bHQuwAAAE10RVh0c29mdHdhcmUASW1hZ2VNYWdpY2sgNy4wLjEtNiBRMTYgeDg2XzY0IDIwMTYtMDktMTcgaHR0cDovL3d3dy5pbWFnZW1hZ2ljay5vcmfd2aVOAAAAY3RFWHRzdmc6Y29tbWVudAAgR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAOSYPjAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAGHRFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA1Mza61vUaAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OldpZHRoADUzNiknpUcAAAAZdEVYdFRodW1iOjpNaW1ldHlwZQBpbWFnZS9wbmc/slZOAAAAF3RFWHRUaHVtYjo6TVRpbWUAMTQ1NTQyNjM5N7/7qD8AAAASdEVYdFRodW1iOjpTaXplADEwLjhLQr49AxAAAABfdEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL3d3d3Jvb3Qvc2l0ZS93d3cuZWFzeWljb24ubmV0L2Nkbi1pbWcuZWFzeWljb24uY24vc3JjLzExOTk0LzExOTk0NjIucG5nOU+IhgAAAABJRU5ErkJggg==");
+        }
+        .delete{
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAyAAAAMgADzko2IAAAAHdElNRQfgAg4NBjA41JEIAAAB5UlEQVRIx6XUP0jUYRzH8Zd6gXR6DVLdBSqiDZEHEf4pIW5pEoQgc3B0cw5d3FwcWhqcXBqkIYQE1+BcTEsPkStcxOU0BJczJ5Gwhp/W3Xmnvx99t+fzfT7v5/v98jwP/xl1NfRmnbp1SeHQrm07imEBHUY8F7fnyIkzNyW0O5X10ffrKkqYsOqDYa1if9UG9wx6J2da8ir7AwsWZdyomq3XZ8Gy/lr2x1bMSFxZYdyULUPVT1/xWkOIsY/LG7jc+4KZEPYAMSlbOYsJi9cUXxqN5s2UCh1WZULbIW1DTzBZGLFnNRLgm89GLxbNPhmOZIeML5JBBZ3ivkYGbDmWDgDd9hxEBvxU0BsAuhz5FRlAQSsxpJyUJZ7qc1bFUC9vuWRdlHL+YMq33/awBuDHZTGGQ3fKtCVLoVpoVhfMYFci5CUuj3YHAWBbu7uR7U3a5ALAjlOPIgO6tcgHgKKsV+eXOny8tGn/Hy2nN5L9vnXPSoVpC+Kh7TGz5kr+TCQtm6r5yVfGmDWdlWK/LeOhEC/kDFZLDMmb1HhN8WNytR//gKx56StGN2ut+ukXkTJjw1sZt8r0Jk+8sW6usvdqPfcYNeBYQUERzdq1abHpvbXKh19raElpvVrP9xzIydv3O8SIo8Yf9FJrVDbj2koAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTYtMDktMTdUMTU6MjI6MDkrMDg6MDAgAf0BAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE2LTAyLTE0VDEzOjA2OjQ4KzA4OjAwATypSwAAAE10RVh0c29mdHdhcmUASW1hZ2VNYWdpY2sgNy4wLjEtNiBRMTYgeDg2XzY0IDIwMTYtMDktMTcgaHR0cDovL3d3dy5pbWFnZW1hZ2ljay5vcmfd2aVOAAAAY3RFWHRzdmc6Y29tbWVudAAgR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAOSYPjAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAGHRFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA1Mza61vUaAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OldpZHRoADUzNiknpUcAAAAZdEVYdFRodW1iOjpNaW1ldHlwZQBpbWFnZS9wbmc/slZOAAAAF3RFWHRUaHVtYjo6TVRpbWUAMTQ1NTQyNjQwOPvJGGIAAAASdEVYdFRodW1iOjpTaXplADEwLjNLQrJo7PEAAABfdEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL3d3d3Jvb3Qvc2l0ZS93d3cuZWFzeWljb24ubmV0L2Nkbi1pbWcuZWFzeWljb24uY24vc3JjLzExOTk0LzExOTk0NzcucG5nOvPUUwAAAABJRU5ErkJggg==");
+        }
+        .menu{
+            margin-top: 10px;
+        }
+        .menu > div{
+            margin-left: 30px;
+        }
+        textarea{
+
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <i class="add" id="first_add"></i>
+</div>
+<div class="content"></div>
+<div>
+    <button id="generate_json">
+        Generate
+    </button>
+</div>
+<div>
+    <textarea id="json_result">
+
+    </textarea>
+</div>
+<script>
+    var $content = document.getElementsByClassName('content')[0];
+    document.getElementById('first_add').addEventListener('click', function(){
+        appendMenu($content);
+    });
+    $content.addEventListener('click', function(e){
+        var $target = e.target;
+        if($target.className === 'add'){
+            appendMenu($target.parentNode);
+        } else if($target.className === 'delete'){
+            $target.parentNode.parentNode.removeChild($target.parentNode);
+        }
+    });
+    document.getElementById('generate_json').addEventListener('click', function(){
+        var result,
+            $menu = $content.childNodes;
+        if($menu.length > 1){
+            result = [];
+            $menu.forEach(function($cur_menu){
+                result.push(parseMenu($cur_menu, {}));
+            });
+        } else if($menu.length === 1){
+            result = {};
+            parseMenu($menu[0], result);
+        } else {
+            result = {}
+        }
+        document.getElementById('json_result').value = JSON.stringify(result);
+    });
+    function appendMenu($target){
+        var menu = document.createElement('div');
+        menu.className = 'menu';
+        menu.innerHTML = '<input><i class="add"></i><i class="delete"></i>';
+        $target.appendChild(menu);
+    }
+    function parseMenu($menu, result){
+        var value = $menu.childNodes[0].value;
+        if(/^{.*}$/.test(value)){
+            value = JSON.parse(value);
+        }
+        result.content = value;
+        var next_menu = $menu.childNodes;
+        if(next_menu.length - 3 > 0){
+            result.children = [];
+            next_menu.forEach(function($cur_menu){
+                if($cur_menu.className === 'menu'){
+                    result.children.push(parseMenu($cur_menu, {}));
+                }
+            });
+        }
+        return result;
+    }
+</script>
+</body>
+</html>

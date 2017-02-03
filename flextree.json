@@ -35,7 +35,7 @@
               ]
             },
             {
-              "content": "css前缀说明",
+              "content": "网格系统css前缀",
               "children": [
                 {
                   "content": ".col-xs-：所有宽度屏幕，水平显示"
@@ -50,24 +50,24 @@
                   "content": ".col-lg-：屏幕宽度>1200px，水平显示"
                 },
                 {
-                  "content": "屏幕不在宽度范围内，元素折叠显示"
+                  "content": "屏幕不在对应前缀宽度范围内时，元素换行显示"
                 }
               ]
             },
             {
-              "content": "辅助类",
+              "content": "网格系统辅助css",
               "children": [
                 {
-                  "content": ".col-md-offset-*：偏移列，左边空出*列，设置margin-left实现"
+                  "content": ".col-md-offset-*：偏移列，左边空出*列；通过设置margin-left实现"
                 },
                 {
-                  "content": "col-md-push-*：列排序，距离左边界*列，设置left属性实现"
+                  "content": "col-md-push-*：列排序，距离左边界*列；通过设置left属性实现"
                 },
                 {
                   "content": ".col-md-pull：列排序，距离右边界*列"
                 },
                 {
-                  "content": ".col-md-offset-*与.col-md-push-* 效果类似，但前者不能实现列的重排"
+                  "content": ".col-md-offset-*与.col-md-push-* 效果类似，但前者不能实现列的重排（修改列的排序）"
                 }
               ]
             }
@@ -77,7 +77,7 @@
           "content": "排版",
           "children": [
             {
-              "content": "部分排版分类",
+              "content": "部分排版分css",
               "children": [
                 {
                   "content": "img/typesetting.png"
@@ -107,16 +107,16 @@
                   "content": ".table：添加表格基本样式，设置间距、边框、对齐等"
                 },
                 {
-                  "content": ".table-condensed：使表格更加紧凑，减小padding实现"
+                  "content": ".table-condensed：使表格更加紧凑；通过减小padding实现"
                 },
                 {
-                  "content": ".table-striped：斑马线表格，设置偶数行的背景色实现"
+                  "content": ".table-striped：斑马线表格；通过设置偶数行的背景色实现"
                 },
                 {
                   "content": ".table-bordered：添加表格边框"
                 },
                 {
-                  "content": ".table-hover：tbody内的行具有鼠标悬停状态"
+                  "content": ".table-hover：使tbody内的行具有鼠标悬停状态"
                 },
                 {
                   "content": ".table-responsive",
@@ -136,7 +136,7 @@
                       ]
                     },
                     {
-                      "content": "原理：在小屏幕下，设置overflow-x: auto;   white-space: nowrap"
+                      "content": "原理：通过在小屏幕下设置overflow-x: auto;white-space: nowrap实现"
                     }
                   ]
                 }
@@ -224,7 +224,7 @@
                   ]
                 },
                 {
-                  "content": "在基础表单的基础加上.form-horizontal类，并用网格系统控制label和表单控件的布局"
+                  "content": "在基础表单的基础上加上.form-horizontal类，并用网格系统css控制label和表单控件的布局"
                 }
               ]
             },
@@ -301,13 +301,82 @@
       "content": "布局组件",
       "children": [
         {
-          "content": "按钮",
+          "content": "输入框组",
           "children": [
             {
-              "content": "img/button.png"
+              "content": "示例",
+              "children": [{"content": "img/input_group.png"}]
             },
             {
-              "content": "img/button_class.png"
+              "content": "HTML结构",
+              "children": [{"content":{"type": "html_code", "id": "input_group_html"}}]
+            },
+            {
+              "content": "原理",
+              "children": [
+                {"content": ".input-group设为display:table，span和input设为display:table-cell"},
+                {"content": "span宽度为1%并用padding撑开，input宽度为100%"}
+              ]
+            }
+          ]
+        },
+        {
+          "content": "进度条",
+          "children": [
+            {
+              "content": "HTML结构",
+              "children": [{"content":{"type": "html_code", "id": "progress_html"}}]
+            },
+            {"content": "progress-bar-warning ，warning可以替换为 success、info、warning、danger"},
+            {"content": "通过css3的transition实现动画效果"}
+          ]
+        },
+        {
+          "content": "导航元素",
+          "children": [
+            {
+              "content": "表格导航",
+              "children": [
+                {
+                "content": "示例",
+                "children": [{"content": "img/table_nav.png"}]
+                },
+                {
+                  "content": "HTML结构",
+                  "children": [{"content":{"type": "html_code", "id": "table_nav_html"}}]
+                },
+                {"content": "原理", "children": [{"content": "li向左浮动，并设置margin-bottom: -1px。active时，a标签背景设为白色，遮挡ul的下边框"}]}
+              ]
+            },
+            {
+              "content": "胶囊式导航",
+              "children": [{"content": "将表格导航的nav-tabs替换为nav-pills即可"}]
+            },
+            {
+              "content": "两端对齐导航",
+              "children": [
+                {"content": "在表格导航或胶囊式导航的基础上加上.nav-justified类即可"},
+                {"content": "原理", "children": [{"content": "li设为display:table-cell，取消ul的display:table，li宽度设置为1%，float为none"}]}
+              ]
+            }
+          ]
+        },
+        {
+          "content": "导航栏",
+          "children": [
+            {
+              "content": "HTML结构",
+              "children": [{"content":{"type": "html_code", "id": "nav_html"}}]
+            },
+            {
+              "content": "响应式导航栏",
+              "children": [
+                {
+                "content": "HTML结构",
+                "children": [{"content":{"type": "html_code", "id": "response_nav_html"}}]
+                },
+                {"content": "导航折叠动画：折叠时，将导航栏的高度从offsetHeight改变到1px，并用css3实现这一过程的动画，最后设置为display：none"}
+              ]
             }
           ]
         }
@@ -315,15 +384,251 @@
     },
     {
       "content": "插件",
-      "children": []
+      "children": [
+        {
+          "content": "jQuery自定义事件",
+          "children": [
+            {
+              "content": {
+                "type": "js_code",
+                "id": "jquery_event"
+              }
+            }
+          ]
+        },
+        {
+          "content": "模态框(弹窗)",
+          "children": [
+            {
+              "content": "HTML结构",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "modal_html"
+                  }
+                }
+              ]
+            },
+            {
+              "content": "方法、事件",
+              "children": [
+                {
+                  "content": {
+                    "type": "js_code",
+                    "id": "modal_event"
+                  }
+                }
+              ]
+            },
+            {
+              "content": "原理",
+              "children": [
+                {
+                  "content": "img/modal_trans.png"
+                },
+                {
+                  "content": "Bootstarp默认从顶部弹出模态框，可以修改其源码css，从任意位置弹出，弹出到任意位置"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "content": "下拉菜单",
+          "children": [
+            {
+              "content": "HTML结构",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "dropdown_html"
+                  }
+                }
+              ]
+            },
+            {
+              "content": "原理",
+              "children": [
+                {
+                  "content": "菜单(. dropdown-menu)相对于父元素(.dropdown)绝对定位，top设为100%"
+                }
+              ]
+            },
+            {
+              "content": "导航栏下拉菜单",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "nav_dropdown_html"
+                  }
+                }
+              ]
+            },
+            {
+              "content": "按钮下拉菜单",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "button_dropdown_html"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "content": "折叠",
+          "children": [
+            {
+              "content": "HTML结构",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "collapse_html"
+                  }
+                }
+              ]
+            },
+            {
+              "content": "折叠动画",
+              "children": [
+                {
+                  "content": "折叠时，改变折叠内容高度，并通过css3实现动画"
+                }
+              ]
+            },
+            {
+              "content": "用折叠插件实现多级下拉菜单",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "collapse_menu_html"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "content": "弹出框",
+          "children": [
+            {
+              "content": "示例",
+              "children": [
+                {
+                  "content": "img/popover.png"
+                }
+              ]
+            },
+            {
+              "content": "HTML结构",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "popover_html"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "content": "轮播",
+          "children": [
+            {
+              "content": "HTML结构",
+              "children": [
+                {
+                  "content": {
+                    "type": "html_code",
+                    "id": "banner_html"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "content": "自定义Bootstrap",
-      "children": []
+      "children": [
+        {
+          "content": "Bootstrap官网定制",
+          "children": [
+            {
+              "content": "在定制页面中填好变量值，提交后，下载编译结果即可"
+            },
+            {
+              "content": "缺点：当要频繁修改css时，不方便；不能实现Bootsratp没有提供的css样式"
+            }
+          ]
+        },
+        {
+          "content": "less编译",
+          "children": [
+            {
+              "content": "Bootsratp源码中，不同模块分为不同的less文件"
+            },
+            {
+              "content": "修改less的方式",
+              "children": [
+                {
+                  "content": "在variables.less中修改变量"
+                },
+                {
+                  "content": "在对应less模块中添加新的css"
+                },
+                {
+                  "content": "新建less文件并引入bootstrap.less",
+                  "children": [
+                    {
+                      "content": "img/import_less.png"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "content": "编译bootstrap.less生成bootstrap.css文件",
+              "children": [
+                {
+                  "content": "命令行执行：lessc bootstrap.less > bootstrap.css"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "content": "规范（仅供参考）",
-      "children": []
+      "content": "Bootstrap编码规范(仅供参考)",
+      "children": [
+        {
+          "content": "尽量使用语义化的标签，如HTML5的<header>、<nav>、<aside>、<footer>等，而不是纯div的布局",
+          "children": [
+            {
+              "content": "如果要兼容IE9以下的版本，可以引入html5shiv.js，使浏览器支持HTML5标签"
+            }
+          ]
+        },
+        {
+          "content": "尽量使用bootstrap已有的css类，而不是加入新的css"
+        },
+        {
+          "content": "尽量修改bootstrap源码(自定义)来使其符合自己的页面风格，而不是覆写bootstrap的css"
+        },
+        {
+          "content": "具体编码规范，参考bootstrap文档"
+        }
+      ]
     }
   ]
 }

@@ -42,8 +42,7 @@ d3.json('flextree.json', function (err, tree) {
         $modal_pre = $modal.select('.modal-code'),
         $modal_code = $modal_pre.select('code');
     $modal.on("click.mask", function(){
-        var target_name = d3.event.target.nodeName;
-        if(target_name === 'IMG' || target_name ==='PRE'){
+        if(d3.event.target.className !== 'modal-cell'){
             return false;
         }
         $modal.style('display', 'none');
@@ -330,7 +329,7 @@ d3.json('flextree.json', function (err, tree) {
     function parseText(text_tag, d){
         var $text = d3.select(text_tag),
             content = d.content;
-        if(typeof d.content === 'string'){
+        if(typeof content === 'string'){
             if(/^(\.\/)?img\//.test(content)){
                 var img_id = content.replace(/[\/\.]/g, '');
                 if($modal_cell.select('#' + img_id)[0][0] === null){
@@ -360,16 +359,19 @@ d3.json('flextree.json', function (err, tree) {
                 });
             }
         } else {
-            if(d.content.type === 'html_code'){
-                $text.append('tspan').attr({x: '2', dy: '1.5em'}).text('点击查看代码');
-                d3.select(text_tag.parentNode).attr('code_id', d.content.id).on("click.show", function(){
-                    var code = $iframe_doc.getElementById(d3.select(this).attr('code_id')).innerHTML;
-                    $modal_code.text(code);
-                    $modal_pre.style('display', 'inline-block');
-                    Prism.highlightAll();
-                    $modal.style('display', 'block');
-                });
+            if(content.type === 'html_code'){
+                $modal_code.attr('class', 'language-html');
+            } else if(content.type === 'js_code'){
+                $modal_code.attr('class', 'language-javascript');
             }
+            $text.append('tspan').attr({x: '2', dy: '1.5em'}).text('点击查看代码');
+            d3.select(text_tag.parentNode).attr('code_id', content.id).on("click.show", function(){
+                var code = $iframe_doc.getElementById(d3.select(this).attr('code_id')).innerHTML;
+                $modal_code.text(code);
+                $modal_pre.style('display', 'inline-block');
+                Prism.highlightAll();
+                $modal.style('display', 'block');
+            });
         }
     }
 });

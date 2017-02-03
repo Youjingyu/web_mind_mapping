@@ -98,5 +98,230 @@
         <!--.glyphicon-search :before {content: “\e008”;}-->
         <span class="glyphicon glyphicon-search"></span>
     </code>
+    <code id="input_group_html">
+        <form role="form">
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" class="form-control">
+            </div>
+            <div class="input-group">
+          <span class="input-group-addon">
+              <input type="checkbox">
+          </span>
+                <input type="text" class="form-control">
+            </div>
+        </form>
+    </code>
+    <code id="table_nav_html">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">SVN</a></li>
+            <li><a href="#">iOS</a></li>
+        </ul>
+    </code>
+    <code id="nav_html">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <!--这里放置logo或者标题-->
+                <a class="navbar-brand" href="#">Router</a>
+            </div>
+            <div>
+                <!--这里放置导航元素的HTML，但类名替换为.navbar-nav-->
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">iOS</a></li>
+                    <li><a href="#">SVN</a></li>
+                </ul>
+            </div>
+        </nav>
+    </code>
+    <code id="response_nav_html">
+        <nav class="navbar navbar-default" role="navigation">
+            <!--header部分向左浮动，屏幕小于768px时，取消浮动，导致导航部分换行显示-->
+            <div class="navbar-header">
+                <!--data-toggle用于指明插件类型，data-target指明插件操作的对象-->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <!--三个横线组成的汉堡按钮-->
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Router</a>
+            </div>
+            <!--导航部分，li向左浮动，屏幕小于768px时，取消其浮动，导致折叠显示-->
+            <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                <!--这里是导航元素HTML部分-->
+            </div>
+        </nav>
+    </code>
+    <code id="jquery_event">
+        //1. jQuery可以自定义事件
+        $("ele").on("click.change.open",function(){
+        //do something
+        });
+        //1.1 用trigger触发事件
+        $("ele").trigger("click");
+        $("ele").trigger("click.change");
+        $("ele").trigger("click.open");
+        $("ele").trigger("click.change.open");
+
+        //2.  bootstrap使用了大量自定义事件
+        //比如bootstrap模态框显示完成后，会触发shown.bs.modal事件
+        $("#modal").on("shown.bs.modal",function(){
+        //do something
+        });
+    </code>
+    <code id="modal_html">
+        <!--bootstrap插件中，一般用data-toggle属性指明插件的类型，可以取dropdown、tooltip、popover等值；-->
+        <!--用data-target属性指定插件控制的对象-->
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">显示模态框
+        </button>
+        <!--fade：模态框是否淡入淡出-->
+        <!--aria-hidden：初始时是否可见；data-backdrop：是否可以点击遮罩隐藏；data-keyboard：是否可以按esc隐藏-->
+        <div class="modal fade" id="myModal" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        标题
+                    </div>
+                    <div class="modal-body">
+                        内容
+                    </div>
+                    <div class="modal-footer">
+                        <!--data-dismiss控制隐藏模态框-->
+                        <button type="button" data-dismiss="modal"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </code>
+    <code id="modal_event">
+        //切换模态框状态
+        $('#my_modal').modal('toggle')
+        //显示模态框
+        $('#my_modal').modal('show')
+        //隐藏模态框
+        $('#my_modal').modal('hide')
+        //在调用 show 方法后触发
+        $('#my_modal').on('show.bs.modal', function () {
+        // do something
+        })
+        //当模态框完全对用户隐藏时触发
+        $('#my_modal').on('hiden.bs.modal', function () {
+        // do something
+        })
+    </code>
+    <code id="dropdown_html">
+        <div class="dropdown">
+            <!--dropdown告诉js这是下拉菜单插件-->
+            <div data-toggle="dropdown">
+                菜单标题
+                <!--三角图标-->
+                <span class="caret"></span>
+            </div>
+            <!--菜单部分-->
+            <ul class="dropdown-menu">
+                <li>
+                    <a>Java</a>
+                </li>
+                <li>
+                    <a>数据挖掘</a>
+                </li>
+            </ul>
+        </div>
+    </code>
+    <code id="nav_dropdown_html">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">Home</a></li>
+            <!--将li标签设置为下拉菜单的父元素即可-->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    Java
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Swing</a></li>
+                    <li><a href="#">jMeter</a></li>
+                </ul>
+            </li>
+            <li><a href="#">PHP</a></li>
+        </ul>
+    </code>
+    <code id="button_dropdown_html">
+        <!--这里btn-group起到了父元素(.dropdown)的作用-->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                原始 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">功能</a></li>
+                <li><a href="#">另一个功能</a></li>
+            </ul>
+        </div>
+    </code>
+    <code id="collapse_html">
+        <div data-toggle="collapse" data-target="#collapseExample">
+            折叠按钮
+        </div>
+        <div id="collapseExample" class="collapse">
+            折叠内容
+        </div>
+    </code>
+    <code id="collapse_menu_html">
+        <div>
+            <div data-toggle="collapse" href="#first_menu">
+                1<span class="caret"></span>
+            </div>
+            <!--二级菜单-->
+            <ul id="first_menu" class="list-unstyled collapse">
+                <li data-toggle="collapse" href="#second_menu">
+                    1.1<span class="caret"></span>
+                    <!--三级菜单-->
+                    <ul id="second_menu" class="list-unstyled collapse">
+                        <li>1.1.1</li>
+                        <li>1.1.2</li>
+                        <li>1.1.3</li>
+                    </ul>
+                </li>
+                <li>1.2</li>
+                <li>1.3</li>
+            </ul>
+        </div>
+        <div>2</div>
+        <div>3</div>
+    </code>
+    <code id="popover_html">
+        <a data-toggle="tooltip" data-placement="top" title="顶部的 Tooltip" data-animation="false" data-trigger="click">
+            顶部的 Tooltip
+        </a>
+    </code>
+    <code id="banner_html">
+        <div id="myCarousel" class="carousel slide">
+            <!-- 轮播（Carousel）指标 -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <!-- 轮播（Carousel）项目 -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="">
+                </div>
+                <div class="item">
+                    <img src="">
+                </div>
+                <div class="item">
+                    <img src="">
+                </div>
+            </div>
+            <!-- 轮播（Carousel）导航 -->
+            <a class="carousel-control left" href="#myCarousel"
+               data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#myCarousel"
+               data-slide="next">&rsaquo;</a>
+        </div>
+    </code>
+    <code id="nav_dropdown_html">
+    </code>
 </body>
 </html>
