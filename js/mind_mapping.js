@@ -94,16 +94,6 @@ d3.json('bs_introduction.json', function (err, tree) {
             }).each(function(d){
                 parseText(this, d);
             });
-            //.html(function (d) {
-            //    var result = parseText(d.content);
-            //    if(result.type === "img"){
-            //        d3.select(this.parentNode).attr('img_id', result.img_id).on("click.show", function(){
-            //            $modal.select('#' + d3.select(this).attr('img_id')).attr("style", "display:inline-block");
-            //            $modal.attr("style", "display: block");
-            //        })
-            //    }
-            //    return result.content;
-            //});
         engine.nodeSize(function (d) {
             var ele = document.getElementById(d.id),
                 ele_size = ele.getBBox();
@@ -233,8 +223,7 @@ d3.json('bs_introduction.json', function (err, tree) {
             })
             .remove();
 
-        // This controls the lines between the nodes; see
-        // https://github.com/mbostock/d3/wiki/SVG-Shapes#diagonal_projection
+        // This controls the lines between the nodes
         var diagonal = d3.svg.diagonal()
             .source(function (d, i) {
                 var s = d.source;
