@@ -8,7 +8,7 @@ var margin = {
     },
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
-d3.json('bs_introduction.json', function (err, tree) {
+d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
 
     engine = d3.layout.tree().setNodeSizes(true);
 
