@@ -17,6 +17,7 @@ iframe{
 .drawing{
     visibility: hidden;
     font-weight: bold;
+    border: 1px solid #ccc;
     animation: drawingframe;
     animation-duration: 1s;
     animation-timing-function: linear;
