@@ -21,10 +21,10 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
         return a.parent == b.parent ?
             5 : engine.rootXSize();
     });
-
+    // set the original coordinates of the root node
     tree.x0 = height / 2;
     tree.y0 = 0;
-
+    // function to collapse data
     function collapse(d) {
         if (d.children) {
             d._children = d.children;
@@ -52,6 +52,7 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
         client_height = document.documentElement.clientHeight;
     var svg = d3.select("#drawing").append('svg').attr("width", client_width).attr("height", client_height);
     var svg_g = svg.append("g");
+    // add zoom event
     svg.call(d3.behavior.zoom().scaleExtent([0.5,3]).on("zoom", redraw));
 
     update(tree);
@@ -66,16 +67,15 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
     });
 
     function update(source, callback){
-        // First get the bag of nodes in the right order
+        // get nodes array
         var nodes = d3.layout.hierarchy()(tree);
-        // Then get started drawing, including, in the case of flare,
-        // the text for each node, which is needed to determine the
-        // node sizes, which are used in the layout algorithm.
         var last_id = 0;
+        // set id for each node
         var node = svg_g.selectAll(".node")
             .data(nodes, function (d) {
                 return d.id || (d.id = ++last_id);
             });
+        // append g and tansform to correct position
         var nodeEnter = node.enter().append("g")
             .attr("class", "node")
             .attr("transform", function (d) {
@@ -83,7 +83,7 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
                 return "translate(" + source.y0 + "," + (source.x0 - x_size / 2) + ")";
             });
             //.on("click", click);
-
+        // add text
         var text_elements = nodeEnter.append("text")
             .attr({
                 id: function (d) {
@@ -94,16 +94,17 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
             }).each(function(d){
                 parseText(this, d);
             });
+        // compute node size
         engine.nodeSize(function (d) {
             var ele = document.getElementById(d.id),
                 ele_size = ele.getBBox();
             return [ele_size["height"] + 30, ele_size["width"] + 14];
         });
 
-        // *Now* do the layout
+        // do the layout
         nodes = engine.nodes(tree);
 
-        // Get the extents, average node area, etc.
+        // get the extents, average node area, etc.
         function node_extents(n) {
             return [n.x - n.x_size / 2, n.y,
                 n.x + n.x_size / 2, n.y + n.y_size];
@@ -130,33 +131,25 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
         });
         var scale = 1;
 
-        // Functions to get the derived svg coordinates given the tree node
-        // coordinates.
-        // Note that the x-y orientations between the svg and the tree drawing
-        // are reversed.
+        // functions to get the svg coordinates
         function svg_x(node_y) {
             return (node_y - ymin) * scale;
         }
         function svg_y(node_x) {
             return (node_x - xmin) * scale;
         }
+        // compute the distance according to the node size
+        var nodebox_right_margin = Math.min(x_size_min * scale, 10),
+            nodebox_vertical_margin = Math.min(y_size_min * scale, 3);
 
-        // The node box is drawn smaller than the actual node width, to
-        // allow room for the diagonal. Note that these are in units of
-        // svg drawing coordinates (not tree node coordinates)
-        var nodebox_right_margin = Math.min(x_size_min * scale, 10);
-        // And smaller than the actual node height, for spacing
-        var nodebox_vertical_margin = Math.min(y_size_min * scale, 3);
-
-
+        // random border color
         function rand() {
             return 80 + Math.floor(Math.random() * 100);
         }
-
         var filler = function () {
             return "fill-opacity: 0; stroke:rgb(" + rand() + "," + rand() + "," + rand() + ")"
         };
-        // Reposition everything according to the layout
+        // reposition everything according to the layout
         node.transition()
             .duration(duration)
             .attr("transform", function (d) {
@@ -223,7 +216,7 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
             })
             .remove();
 
-        // This controls the lines between the nodes
+        // control the lines between the nodes
         var diagonal = d3.svg.diagonal()
             .source(function (d, i) {
                 var s = d.source;
@@ -266,11 +259,11 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
                     target: o
                 });
             });
-        // Transition links to their new position.
+        // transition links to their new position.
         link.transition()
             .duration(duration)
             .attr("d", diagonal);
-        // Transition exiting nodes to the parent's new position.
+        // transition exiting nodes to the parent's new position
         link.exit().transition()
             .duration(duration)
             .attr("d", function (d) {
@@ -285,7 +278,7 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
                 });
             })
             .remove();
-        // Stash the old positions for transition.
+        // save the old positions for transition
         nodes.forEach(function (d) {
             d.x0 = svg_y(d.x);
             d.y0 = svg_x(d.y);
@@ -293,13 +286,13 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
         callback && callback();
     }
 
-    //Redraw for zoom
+    // function for zoom
     function redraw() {
         svg_g.attr("transform",
             "translate(" + d3.event.translate + ")"
             + " scale(" + d3.event.scale + ")");
     }
-    // Toggle children on click.
+    // toggle children on click
     function click(d) {
         if (d.children) {
             d3.select(this).select('.vertical-line').style('display', 'block');
@@ -312,7 +305,7 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
         }
         update(d);
     }
-    // wrap text line
+    // wrap text line, control image ang highlight code
     function parseText(text_tag, d){
         var $text = d3.select(text_tag),
             content = d.content;

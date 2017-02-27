@@ -10,7 +10,7 @@ body{
     clear: both;
 }
 
-iframe{
+.code_iframe{
     display: none;
 }
 
