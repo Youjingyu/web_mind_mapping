@@ -19,6 +19,9 @@
             vertical-align: middle;
             background-size: 100%;
         }
+        .content{
+            /*width: 50%;*/
+        }
         .add{
             background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAyAAAAMgADzko2IAAAAHdElNRQfgAg4NBiVVCXXjAAACFUlEQVRIx6XUvUuVYRgG8J8fgXTUiKiOkV+oQ6gQ4UcKIYKTVASZg6Ob4Jgubi4OLQ1ONTRIQxxI8A84LqakB5FTuFiLGkYNmpNYWMN71HP0ffVI9/RyPdd9Pfd1vc/z8J9VEIGXqdOkXgV++mLVmu18BWr16xGzYceeA5eVq7Yv6b3P501UbsS8d/pUKj5Ci9zS642UcfGz2u9ImNblUuhqoVYJs9qj2u+ZM6H8zAljxqx4HL77nOeK8oh9SFrnae8JE3m0BxKjkipywRHT5wyfXSWmTGQDteZ1hVI7wv1qtqQlSBb6bZgPJbZ5GIp/8sHAoUCZHgm/Q4kHDiJsTOsUDwTqxHzM2/9hrdjVHAg02bB1YYFf1rUFAvV2/ImgRVtg3W2KUWEvZ6FDW6btQLe44cyVK5Q2m8XbViFzYXJ3ua7xSCDuqsYjgW+nxyjGDzdysBkzR9/DGg1FWChVEGTwVXnkIS6IfHKo8T0QWFXt5oX/QqkqS4HAmn13LyzQ5Jp0ILAt6VnmUJ+swgicp5ZtHqultIbSuvWF4g0WPcgGxiXE8h6/2KTXWW8m4maNnZF4bg1aUHcSbLdiKC+JJ1J6wxYeSRtVcs7wg1IRuaBT0pTmyPYGkxbCdz/OYsKSl7pcycFL3ffColcnvYd5bjGg065167ZRqkaVa5a9tXDy4keFFtesVWWGsyUlbdPfPCK+aP0DrTF1yEQQ8o4AAAAldEVYdGRhdGU6Y3JlYXRlADIwMTYtMDktMTdUMTU6MjI6MDkrMDg6MDAgAf0BAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE2LTAyLTE0VDEzOjA2OjM3KzA4OjAw/bHQuwAAAE10RVh0c29mdHdhcmUASW1hZ2VNYWdpY2sgNy4wLjEtNiBRMTYgeDg2XzY0IDIwMTYtMDktMTcgaHR0cDovL3d3dy5pbWFnZW1hZ2ljay5vcmfd2aVOAAAAY3RFWHRzdmc6Y29tbWVudAAgR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjQsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAOSYPjAAAAGHRFWHRUaHVtYjo6RG9jdW1lbnQ6OlBhZ2VzADGn/7svAAAAGHRFWHRUaHVtYjo6SW1hZ2U6OkhlaWdodAA1Mza61vUaAAAAF3RFWHRUaHVtYjo6SW1hZ2U6OldpZHRoADUzNiknpUcAAAAZdEVYdFRodW1iOjpNaW1ldHlwZQBpbWFnZS9wbmc/slZOAAAAF3RFWHRUaHVtYjo6TVRpbWUAMTQ1NTQyNjM5N7/7qD8AAAASdEVYdFRodW1iOjpTaXplADEwLjhLQr49AxAAAABfdEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL3d3d3Jvb3Qvc2l0ZS93d3cuZWFzeWljb24ubmV0L2Nkbi1pbWcuZWFzeWljb24uY24vc3JjLzExOTk0LzExOTk0NjIucG5nOU+IhgAAAABJRU5ErkJggg==");
         }
@@ -28,13 +31,33 @@
         .menu{
             margin-top: 10px;
         }
-        .menu > div{
+        .menu > .menu{
             margin-left: 30px;
         }
-        textarea{
-
-            width: 500px;
-            height: 500px;
+        /*textarea{*/
+            /*display: inline-block;*/
+            /*box-sizing: border-box;*/
+            /*!*width: 80%;*!*/
+            /*width: 300px;*/
+            /*!*height: 50px;*!*/
+            /*vertical-align: middle;*/
+        /*}*/
+        .menu_text{
+            display: inline-block;
+            width: 300px;
+            min-height: 30px;
+            max-height: 160px;
+            overflow-y: auto;
+            border: 1px solid rgb(169, 169, 169);
+            vertical-align: middle;
+            line-height: 16px;
+        }
+        .menu .type{
+            margin-left: 1px;
+        }
+        .menu_file{
+            min-height: 32px;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -48,11 +71,11 @@
         Generate Json
     </button>
 </div>
-<div>
-    <textarea id="json_result">
+<!--<div>-->
+    <!--<textarea id="json_result">-->
 
-    </textarea>
-</div>
+    <!--</textarea>-->
+<!--</div>-->
 <script>
     var $content = document.getElementsByClassName('content')[0];
     document.getElementById('first_add').addEventListener('click', function(){
@@ -85,8 +108,31 @@
     function appendMenu($target){
         var menu = document.createElement('div');
         menu.className = 'menu';
-        menu.innerHTML = '<input><i class="add"></i><i class="delete"></i>';
+        menu.innerHTML = '<div class="menu_text" contenteditable="true"></div>' +
+                '<select class="type">' +
+                '<option value="text">text</option>' +
+                '<option value="code">code</option>' +
+                '<option value="image">image</option>' +
+                '</select>' +
+                '<i class="add"></i><i class="delete"></i>';
         $target.appendChild(menu);
+        addSelectEvent(menu);
+    }
+    function addSelectEvent($menu){
+        $menu.getElementsByClassName('type')[0].addEventListener('change', function(){
+            $menu.removeChild($menu.childNodes[0]);
+            if(this.value === 'text' || this.value === 'code'){
+                var div = document.createElement('div');
+                div.className = 'menu_text';
+                div.setAttribute('contenteditable', 'true');
+                $menu.insertBefore(div, this);
+            } else if(this.value === 'image'){
+                var file_input = document.createElement('input');
+                file_input.className = 'menu_file';
+                file_input.setAttribute('type', 'file');
+                $menu.insertBefore(file_input, this);
+            }
+        });
     }
     function parseMenu($menu, result){
         var value = $menu.childNodes[0].value;
