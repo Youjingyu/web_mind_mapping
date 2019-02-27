@@ -8,6 +8,16 @@ var margin = {
     },
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom;
+
+var loadingEle = document.getElementById('loading')
+var loadingStatus = loadingEle.getElementsByTagName('span')[0]
+var count = 0
+var lodingTimer = setInterval(function () {
+  loadingStatus.textContent = new Array(count).join(' .')
+  count = count > 3 ? 0 : count
+  count++
+}, 300)
+
 d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
 
     engine = d3.layout.tree().setNodeSizes(true);
@@ -59,6 +69,8 @@ d3.json('bs_introduction/bs_introduction.json', function (err, tree) {
     tree.children.forEach(collapse);
     update(tree, function(){
         setTimeout(function(){
+            clearInterval(lodingTimer)
+            d3.select("#loading").style({'display': "none"});
             d3.select("#drawing").style({'visibility': "visible"});
             d3.selectAll(".node").each(function(d, i){
                 i > 0 && (d3.select(this).select(".vertical-line").style('display', 'block'));
